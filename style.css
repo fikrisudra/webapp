@@ -1,3 +1,4 @@
+/* === Reset & Layout === */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,7 +7,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(to right, #74ebd5, #ACB6E5);
+  background: linear-gradient(to bottom right, #f0f0f0, #ffffff); /* Light mode gradient */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +16,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Container */
+/* === Container === */
 .login-box,
 .dashboard {
   background: white;
@@ -27,13 +28,13 @@ body {
   animation: fadeIn 0.6s ease-in-out;
 }
 
-/* Animasi */
+/* === Animasi Masuk === */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Heading */
+/* === Heading === */
 h2 {
   text-align: center;
   margin-bottom: 24px;
@@ -42,7 +43,7 @@ h2 {
   line-height: 2.4rem;
 }
 
-/* Input */
+/* === Input Group === */
 .input-group {
   margin-bottom: 20px;
 }
@@ -61,7 +62,7 @@ h2 {
   outline: none;
 }
 
-/* Button */
+/* === Button === */
 button {
   width: 100%;
   padding: 16px;
@@ -79,7 +80,7 @@ button:hover {
   background: #0056b3;
 }
 
-/* Result */
+/* === Result Message === */
 #result {
   margin-top: 20px;
   text-align: center;
@@ -87,7 +88,7 @@ button:hover {
   font-size: 1rem;
 }
 
-/* Info */
+/* === Dashboard Info === */
 .info {
   margin-bottom: 24px;
   font-size: 1.1rem;
@@ -97,7 +98,7 @@ button:hover {
   margin-bottom: 12px;
 }
 
-/* Logout Button */
+/* === Logout Button Override === */
 .actions button {
   background: #dc3545;
 }
@@ -106,10 +107,10 @@ button:hover {
   background: #c82333;
 }
 
-/* Dark Mode */
+/* === Dark Mode Support === */
 @media (prefers-color-scheme: dark) {
   body {
-    background: linear-gradient(to right, #1e1e1e, #2c2c2c);
+    background: linear-gradient(to bottom right, #1e1e1e, #2c2c2c); /* Dark mode gradient */
     color: #f0f0f0;
   }
 
