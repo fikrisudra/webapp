@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Login Multi User</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -10,12 +11,12 @@
   <div class="login-box">
     <h2>Login</h2>
     <div class="input-group">
-      <input type="text" id="username" placeholder="Username" required aria-label="Username" />
+      <input type="text" id="username" placeholder="Username" required />
     </div>
     <div class="input-group">
-      <input type="password" id="password" placeholder="Password" required aria-label="Password" />
+      <input type="password" id="password" placeholder="Password" required />
     </div>
-    <button onclick="login()" aria-label="Login">Masuk</button>
+    <button onclick="login()">Masuk</button>
     <p id="result"></p>
   </div>
 
