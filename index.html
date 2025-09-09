@@ -24,7 +24,7 @@
       const username = document.getElementById("username").value;
       const password = document.getElementById("password").value;
 
-      const response = await fetch("https://script.google.com/macros/s/AKfycbzD3L1sxs8QpLlpRWLkY-G2U4qgHJh4OASEgrpSKyE1/exec", {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbzD3L1sxs8QpLlpRWLkY-G2U4qgHJh4OASEgrpSKyE1/dev", {
         method: "POST",
         body: JSON.stringify({ username, password })
       });
