@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Login Multi User</title>
-  <style>
-    body { font-family: Arial; background: #f0f0f0; padding: 20px; }
-    .login-box { background: white; padding: 20px; max-width: 300px; margin: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    input, button { width: 100%; padding: 10px; margin: 10px 0; }
-    #result { margin-top: 10px; font-weight: bold; }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="login-box">
     <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username" required>
-    <input type="password" id="password" placeholder="Password" required>
+    <div class="input-group">
+      <input type="text" id="username" placeholder="Username" required>
+    </div>
+    <div class="input-group">
+      <input type="password" id="password" placeholder="Password" required>
+    </div>
     <button onclick="login()">Masuk</button>
     <p id="result"></p>
   </div>
@@ -36,14 +36,13 @@
           method: "POST",
           body: JSON.stringify({ username, password }),
           headers: {
-            // Gunakan text/plain untuk hindari preflight CORS
             "Content-Type": "text/plain;charset=utf-8"
           },
           redirect: "follow"
         });
 
-        const text = await response.text(); // Ambil sebagai teks dulu
-        const data = JSON.parse(text);      // Lalu parse ke JSON
+        const text = await response.text();
+        const data = JSON.parse(text);
 
         if (data.status === "success") {
           result.textContent = `Selamat datang, ${data.username} (${data.role})`;
