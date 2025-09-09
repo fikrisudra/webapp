@@ -1,49 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Dashboard Pengguna</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .dashboard {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      width: 100%;
-      max-width: 500px;
-      margin: auto;
-      animation: fadeIn 0.6s ease-in-out;
-    }
-
-    .dashboard h2 {
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    .info {
-      margin-bottom: 20px;
-      font-size: 16px;
-    }
-
-    .actions button {
-      margin-top: 10px;
-      width: 100%;
-      padding: 12px;
-      background: #dc3545;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .actions button:hover {
-      background: #c82333;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="dashboard">
@@ -53,7 +14,7 @@
       <p><strong>Role:</strong> <span id="userRole"></span></p>
     </div>
     <div class="actions">
-      <button onclick="logout()">Logout</button>
+      <button onclick="logout()" aria-label="Logout">Logout</button>
     </div>
   </div>
 

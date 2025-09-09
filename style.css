@@ -11,15 +11,18 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow-x: hidden;
+  padding: 20px;
 }
 
-.login-box {
+.login-box,
+.dashboard {
   background: white;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
   animation: fadeIn 0.6s ease-in-out;
 }
 
@@ -32,6 +35,7 @@ h2 {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
 .input-group {
@@ -43,7 +47,7 @@ h2 {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   transition: border-color 0.3s;
 }
 
@@ -59,7 +63,7 @@ button {
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
@@ -74,4 +78,51 @@ button:hover {
   text-align: center;
   font-weight: bold;
   font-size: 14px;
+}
+
+.info p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 480px) {
+  .login-box,
+  .dashboard {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 90%;
+  }
+
+  .info p {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(to right, #1e1e1e, #2c2c2c);
+    color: #f0f0f0;
+  }
+
+  .login-box,
+  .dashboard {
+    background: #2a2a2a;
+    color: white;
+    box-shadow: 0 8px 20px rgba(255,255,255,0.05);
+  }
+
+  input,
+  button {
+    background: #3a3a3a;
+    color: white;
+    border: 1px solid #555;
+  }
+
+  input:focus {
+    border-color: #66b2ff;
+  }
+
+  button:hover {
+    background: #3399ff;
+  }
 }
