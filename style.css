@@ -197,18 +197,24 @@ button:hover {
   }
 
   .mobile-login-card {
+    position: relative;
     background: white;
     border-radius: 16px;
-    padding: 24px;
+    padding: 56px 24px 24px;
     width: 100%;
     max-width: 360px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: visible;
   }
 
   .mobile-login-icon {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 80px;
     height: 80px;
     background: #007bff;
@@ -218,7 +224,8 @@ button:hover {
     justify-content: center;
     color: white;
     font-size: 2rem;
-    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 2;
   }
 
   .mobile-login-title {
@@ -359,6 +366,49 @@ button:hover {
 
   .logout-btn:hover {
     background: #e63946;
+  }
+
+  #result {
+    color: #ff4d4d;
+  }
+
+  .mobile-login-icon {
+    background: #3399ff;
+    color: white;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+    z-index: 2;
+  }
+
+  .mobile-login-title {
+    color: #f0f0f0;
+  }
+
+  .mobile-login-options a,
+  .mobile-login-footer a {
+    color: #66b2ff;
+  }
+
+  .mobile-login-card button:hover {
+    background: #66b2ff;
+  }
+
+  .mobile-login-card input::placeholder {
+    color: #ccc;
+  }
+
+  .mobile-login-card input:focus {
+    border-color: #66b2ff;
   }
 
   #result {
