@@ -4,40 +4,52 @@
   <meta charset="UTF-8">
   <title>Login Multi User</title>
   <style>
-    body { font-family: Arial; padding: 20px; background: #f0f0f0; }
+    body { font-family: Arial; background: #f0f0f0; padding: 20px; }
     .login-box { background: white; padding: 20px; max-width: 300px; margin: auto; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    input { width: 100%; padding: 8px; margin: 8px 0; }
-    button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; }
+    #result { margin-top: 10px; font-weight: bold; }
   </style>
 </head>
 <body>
   <div class="login-box">
     <h2>Login</h2>
-    <input type="text" id="username" placeholder="Username">
-    <input type="password" id="password" placeholder="Password">
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
     <button onclick="login()">Masuk</button>
     <p id="result"></p>
   </div>
 
   <script>
     async function login() {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const result = document.getElementById("result");
 
-      const response = await fetch("https://script.google.com/macros/s/AKfycbzD3L1sxs8QpLlpRWLkY-G2U4qgHJh4OASEgrpSKyE1/dev", {
-        method: "POST",
-        body: JSON.stringify({ username, password })
-      });
+      if (!username || !password) {
+        result.textContent = "Harap isi semua kolom.";
+        result.style.color = "red";
+        return;
+      }
 
-      const result = await response.json();
-      const output = document.getElementById("result");
+      try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbzD3L1sxs8QpLlpRWLkY-G2U4qgHJh4OASEgrpSKyE1/exec", {
+          method: "POST",
+          body: JSON.stringify({ username, password })
+        });
 
-      if (result.status === "success") {
-        output.innerText = `Login berhasil sebagai ${result.role}`;
-        output.style.color = "green";
-      } else {
-        output.innerText = result.message;
-        output.style.color = "red";
+        const data = await response.json();
+
+        if (data.status === "success") {
+          result.textContent = `Selamat datang, ${data.username} (${data.role})`;
+          result.style.color = "green";
+        } else {
+          result.textContent = data.message;
+          result.style.color = "red";
+        }
+      } catch (error) {
+        result.textContent = "Terjadi kesalahan koneksi.";
+        result.style.color = "red";
+        console.error("Login error:", error);
       }
     }
   </script>
