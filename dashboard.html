@@ -2,29 +2,38 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Dashboard Pengguna</title>
+  <title>Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="dashboard">
-    <h2>Selamat Datang di Dashboard</h2>
-    <div class="info">
-      <p><strong>Username:</strong> <span id="userName"></span></p>
-      <p><strong>Role:</strong> <span id="userRole"></span></p>
-    </div>
-    <div class="actions">
-      <button onclick="logout()">Logout</button>
-    </div>
-  </div>
+  <!-- Header -->
+  <header class="app-header">
+    <h1>Dashboard</h1>
+  </header>
 
-  <!-- Bottom Navigation (Tanpa Area) -->
-  <div class="bottom-nav">
+  <!-- Konten Utama -->
+  <main class="app-content">
+    <div class="card-grid">
+      <div class="card">
+        <h3>Profil Pengguna</h3>
+        <p><strong>Username:</strong> <span id="userName"></span></p>
+        <p><strong>Role:</strong> <span id="userRole"></span></p>
+      </div>
+      <div class="card">
+        <h3>Pengaturan</h3>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav">
     <button onclick="goTo('home')">Beranda</button>
     <button onclick="goTo('users')">Pengguna</button>
     <button onclick="goTo('profile')">Profil</button>
-  </div>
+  </nav>
 
   <script>
     const username = localStorage.getItem("username");

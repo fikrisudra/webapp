@@ -9,13 +9,11 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(to bottom right, #f0f0f0, #ffffff); /* Light mode gradient */
+  background: linear-gradient(to bottom right, #f0f0f0, #ffffff);
   display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Rata atas */
+  flex-direction: column;
   height: 100vh;
-  padding: 24px;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 /* ============================= */
@@ -23,13 +21,12 @@ body {
 /* ============================= */
 .login-box {
   margin-top: 32px;
-  background: white;
   padding: 32px;
+  background: white;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   width: 100%;
   max-width: 100%;
-  animation: none;
 }
 
 .login-box h2 {
@@ -37,7 +34,6 @@ body {
   margin-bottom: 24px;
   color: #333;
   font-size: 2rem;
-  line-height: 2.4rem;
 }
 
 .input-group {
@@ -85,38 +81,67 @@ button:hover {
 /* ============================= */
 /* === DASHBOARD.HTML ========= */
 /* ============================= */
-.dashboard {
-  margin-top: 32px;
-  background: white;
-  padding: 32px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 100%;
-  animation: none;
+  background: white;
+  padding: 16px 24px;
+  border-bottom: 1px solid #ccc;
+  z-index: 100;
 }
 
-.dashboard h2 {
-  text-align: center;
-  margin-bottom: 24px;
+.app-header h1 {
+  font-size: 1.5rem;
   color: #333;
-  font-size: 2rem;
 }
 
-.info {
-  margin-bottom: 24px;
-  font-size: 1.1rem;
+.app-content {
+  margin-top: 72px;
+  margin-bottom: 72px;
+  padding: 16px;
+  overflow-y: auto;
+  flex: 1;
 }
 
-.info p {
+.card-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding: 20px;
+}
+
+.card h3 {
   margin-bottom: 12px;
+  font-size: 1.2rem;
+  color: #007bff;
 }
 
-.actions button {
+.card p {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.card button {
+  width: 100%;
+  padding: 12px;
   background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
-.actions button:hover {
+.card button:hover {
   background: #c82333;
 }
 
@@ -159,7 +184,8 @@ button:hover {
   }
 
   .login-box,
-  .dashboard {
+  .card,
+  .app-header {
     background: #2a2a2a;
     color: white;
     box-shadow: 0 8px 20px rgba(255,255,255,0.05);
@@ -180,11 +206,15 @@ button:hover {
     background: #3399ff;
   }
 
-  .actions button {
+  .card h3 {
+    color: #66b2ff;
+  }
+
+  .card button {
     background: #ff4d4d;
   }
 
-  .actions button:hover {
+  .card button:hover {
     background: #e63946;
   }
 
@@ -199,5 +229,9 @@ button:hover {
 
   .bottom-nav button:hover {
     color: #3399ff;
+  }
+
+  .app-header h1 {
+    color: #f0f0f0;
   }
 }
