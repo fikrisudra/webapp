@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Dashboard</title>
+  <title>Dashboard - MyProduction</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -11,55 +11,40 @@
 <body class="dashboard-page">
   <header class="app-header">
     <h1>Dashboard</h1>
-    <button class="logout-btn" onclick="logout()" title="Logout">
+    <button class="logout-btn" onclick="logout()">
       <i class="fas fa-sign-out-alt"></i>
     </button>
   </header>
 
   <main class="app-content">
     <div class="card-grid">
+
+      <!-- Card Pengambilan ATK -->
       <div class="card">
-        <h3>Profil Pengguna</h3>
-        <p><strong>Username:</strong> <span id="userName"></span></p>
-        <p><strong>Role:</strong> <span id="userRole"></span></p>
+        <i class="fas fa-pencil-alt" style="font-size: 1.6rem; color: #007bff; margin-bottom: 8px;"></i>
+        <h3>Pengambilan ATK</h3>
+        <p>Kelola permintaan dan pencatatan pengambilan alat tulis kantor.</p>
+        <button onclick="window.location.href='pengambilan-atk.html'">Masuk Menu</button>
       </div>
-      <div class="card">
-        <h3>Pengaturan</h3>
-        <button onclick="logout()">Logout</button>
-      </div>
+
     </div>
   </main>
 
   <nav class="bottom-nav">
-    <button onclick="goTo('home')">
-      <i class="fas fa-house"></i><span>Beranda</span>
+    <button onclick="window.location.href='dashboard.html'">
+      <i class="fas fa-home"></i>
+      <span>Dashboard</span>
     </button>
-    <button onclick="goTo('users')">
-      <i class="fas fa-users"></i><span>Pengguna</span>
-    </button>
-    <button onclick="goTo('profile')">
-      <i class="fas fa-user-circle"></i><span>Profil</span>
+    <button onclick="logout()">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Logout</span>
     </button>
   </nav>
 
   <script>
-    const username = localStorage.getItem("username");
-    const role = localStorage.getItem("role");
-
-    if (!username || !role) {
-      window.location.href = "index.html";
-    } else {
-      document.getElementById("userName").textContent = username;
-      document.getElementById("userRole").textContent = role;
-    }
-
     function logout() {
       localStorage.clear();
       window.location.href = "index.html";
-    }
-
-    function goTo(page) {
-      alert("Navigasi ke: " + page);
     }
   </script>
 </body>
