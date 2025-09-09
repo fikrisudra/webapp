@@ -84,7 +84,7 @@
     const employeeId = localStorage.getItem("username"); // sekarang dianggap sebagai Employee ID (angka)
 
     async function loadProfile() {
-      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?employeeId=" + employeeId);
+      const res = await fetch("https://script.google.com/macros/s/AKfycbzzf-Imc7A8Pd_HSNjAv-Hc0dpGrpCZpDsPRfbwz93VeooDdrLTGHoDGHuHl4Z6Z9Qwbg/exec?employeeId=" + employeeId);
       const data = await res.json();
 
       document.getElementById("employeeId").value = employeeId;
