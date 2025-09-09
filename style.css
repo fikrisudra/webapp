@@ -467,36 +467,39 @@ html {
   }
 }
 
-.floating-install-btn {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  width: 56px;
-  height: 56px;
+.download-app-btn {
+  width: 100%;
+  padding: 14px;
   background: #28a745;
   color: white;
   border: none;
-  border-radius: 50%;
-  font-size: 1.4rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  z-index: 999;
+  margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s;
+  gap: 8px;
+  transition: background 0.3s ease;
 }
 
-.floating-install-btn:hover {
+.download-app-btn:hover {
   background: #218838;
 }
 
+.download-app-btn i {
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
 @media (prefers-color-scheme: dark) {
-  .floating-install-btn {
+  .download-app-btn {
     background: #44c767;
   }
 
-  .floating-install-btn:hover {
+  .download-app-btn:hover {
     background: #2e9e4f;
   }
 }
