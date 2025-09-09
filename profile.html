@@ -31,6 +31,10 @@
     <div class="card">
       <h3>Account Information</h3>
       <div class="input-group">
+        <label for="employeeId">Employee ID</label>
+        <input type="number" id="employeeId" disabled />
+      </div>
+      <div class="input-group">
         <label for="name">Full Name</label>
         <input type="text" id="name" disabled />
       </div>
@@ -77,12 +81,13 @@
       window.location.href = "index.html";
     }
 
-    const username = localStorage.getItem("username");
+    const employeeId = localStorage.getItem("username"); // sekarang dianggap sebagai Employee ID (angka)
 
     async function loadProfile() {
-      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?username=" + username);
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?employeeId=" + employeeId);
       const data = await res.json();
 
+      document.getElementById("employeeId").value = employeeId;
       document.getElementById("name").value = data.fullName || "";
       document.getElementById("email").value = data.email || "";
       document.getElementById("role").value = data.role || "";
@@ -106,11 +111,11 @@
         return;
       }
 
-      const res = await fetch("https://script.google.com/macros/s/AKfycbx_8d5qjDmKnM70XogwFkCelQDzkRUMfMDjKN6A-h8BYmUmZWQQVKhQhbfnKYvKhnDT/exec", {
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
         method: "POST",
         body: JSON.stringify({
           action: "changePassword",
-          username,
+          employeeId,
           currentPassword: current,
           newPassword: newPass
         }),
