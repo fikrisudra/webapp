@@ -5,13 +5,13 @@
   <title>Login - MyProduction</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#007bff" />
+  <meta name="theme-color" content="#007bff" />
 </head>
 <body class="login-page">
   <main class="login-container">
@@ -25,6 +25,12 @@
       <input type="password" id="password" placeholder="Password" required autocomplete="current-password" />
 
       <button onclick="login()">Sign in</button>
+
+      <!-- ✅ Tombol Install Web App -->
+      <button class="download-app-btn" onclick="showInstallPrompt()">
+        <i class="fas fa-download"></i> Install Web App
+      </button>
+
       <p id="result"></p>
     </div>
   </main>
@@ -66,11 +72,38 @@
         console.error("Login error:", error);
       }
     }
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").then(() =>
-      console.log("Service Worker Registered")
-    );
-  }
+
+    // ✅ Service Worker tetap aktif
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").then(() =>
+        console.log("Service Worker Registered")
+      );
+    }
+
+    // ✅ Script Install Prompt
+    let deferredPrompt;
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log("Install prompt captured");
+    });
+
+    function showInstallPrompt() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === "accepted") {
+            console.log("User accepted install");
+          } else {
+            console.log("User dismissed install");
+          }
+          deferredPrompt = null;
+        });
+      } else {
+        alert("Install prompt belum tersedia. Coba buka di Chrome Android.");
+      }
+    }
   </script>
 </body>
 </html>
