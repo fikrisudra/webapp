@@ -1,4 +1,6 @@
-/* === Reset & Layout === */
+/* ============================= */
+/* === GLOBAL RESET & LAYOUT === */
+/* ============================= */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,7 +9,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(to bottom right, #f0f0f0, #ffffff); /* Light mode gradient */
+  background: linear-gradient(to bottom right, #f0f0f0, #ffffff); /* Light mode */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,26 +18,20 @@ body {
   overflow-x: hidden;
 }
 
-/* === Container === */
-.login-box,
-.dashboard {
+/* ============================= */
+/* === INDEX.HTML (LOGIN) ====== */
+/* ============================= */
+.login-box {
   background: white;
   padding: 32px;
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   width: 100%;
   max-width: 100%;
-  animation: fadeIn 0.6s ease-in-out;
+  animation: none; /* Instant appearance */
 }
 
-/* === Animasi Masuk === */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* === Heading === */
-h2 {
+.login-box h2 {
   text-align: center;
   margin-bottom: 24px;
   color: #333;
@@ -43,7 +39,6 @@ h2 {
   line-height: 2.4rem;
 }
 
-/* === Input Group === */
 .input-group {
   margin-bottom: 20px;
 }
@@ -62,7 +57,6 @@ h2 {
   outline: none;
 }
 
-/* === Button === */
 button {
   width: 100%;
   padding: 16px;
@@ -80,7 +74,6 @@ button:hover {
   background: #0056b3;
 }
 
-/* === Result Message === */
 #result {
   margin-top: 20px;
   text-align: center;
@@ -88,7 +81,26 @@ button:hover {
   font-size: 1rem;
 }
 
-/* === Dashboard Info === */
+/* ============================= */
+/* === DASHBOARD.HTML ========= */
+/* ============================= */
+.dashboard {
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  width: 100%;
+  max-width: 100%;
+  animation: none;
+}
+
+.dashboard h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #333;
+  font-size: 2rem;
+}
+
 .info {
   margin-bottom: 24px;
   font-size: 1.1rem;
@@ -98,7 +110,6 @@ button:hover {
   margin-bottom: 12px;
 }
 
-/* === Logout Button Override === */
 .actions button {
   background: #dc3545;
 }
@@ -107,10 +118,12 @@ button:hover {
   background: #c82333;
 }
 
-/* === Dark Mode Support === */
+/* ============================= */
+/* === DARK MODE SUPPORT ====== */
+/* ============================= */
 @media (prefers-color-scheme: dark) {
   body {
-    background: linear-gradient(to bottom right, #1e1e1e, #2c2c2c); /* Dark mode gradient */
+    background: linear-gradient(to bottom right, #1e1e1e, #2c2c2c);
     color: #f0f0f0;
   }
 
