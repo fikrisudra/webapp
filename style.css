@@ -44,17 +44,27 @@ body.dashboard-page {
   color: #333;
 }
 
-/* === LOGOUT BUTTON IN HEADER === */
+/* === LOGOUT BUTTON IN HEADER (kotak) === */
 .logout-btn {
-  background: none;
+  background: #dc3545;
   border: none;
-  font-size: 1.2rem;
-  color: #dc3545;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .logout-btn:hover {
-  color: #c82333;
+  background: #c82333;
+}
+
+.logout-btn i {
+  pointer-events: none;
 }
 
 /* === CONTENT === */
@@ -233,10 +243,11 @@ button:hover {
   }
 
   .logout-btn {
-    color: #ff4d4d;
+    background: #ff4d4d;
+    color: white;
   }
 
   .logout-btn:hover {
-    color: #e63946;
+    background: #e63946;
   }
 }

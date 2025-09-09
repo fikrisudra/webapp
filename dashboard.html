@@ -9,10 +9,10 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="dashboard-page">
-  <!-- Header dengan tombol logout -->
+  <!-- Header dengan tombol logout kotak -->
   <header class="app-header">
     <h1>Dashboard</h1>
-    <button class="logout-btn" onclick="logout()">
+    <button class="logout-btn" onclick="logout()" title="Logout">
       <i class="fas fa-sign-out-alt"></i>
     </button>
   </header>
@@ -45,7 +45,6 @@
     </button>
   </nav>
 
-  <!-- Script login dan navigasi -->
   <script>
     const username = localStorage.getItem("username");
     const role = localStorage.getItem("role");
@@ -63,7 +62,7 @@
     }
 
     function goTo(page) {
-      alert("Navigasi ke: " + page); // Ganti dengan SPA routing nanti
+      alert("Navigasi ke: " + page);
     }
   </script>
 </body>
