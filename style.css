@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(to bottom right, #f0f0f0, #ffffff);
+  background: #f8f9fa; /* konsisten dengan dashboard */
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -16,8 +16,10 @@ body {
 
 /* === PAGE-SPECIFIC LAYOUT === */
 body.login-page {
-  justify-content: flex-start;
-  overflow-y: auto;
+  justify-content: center;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 16px;
 }
 
 body.dashboard-page {
@@ -185,112 +187,85 @@ button:hover {
   color: #0056b3;
 }
 
-/* === MOBILE LOGIN PAGE === */
-@media (max-width: 480px) {
-  .mobile-login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 16px;
-    background: #e0e0e0;
-  }
+/* === RESPONSIVE LOGIN PAGE === */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 16px;
+}
 
-  .mobile-login-card {
-    position: relative;
-    background: white;
-    border-radius: 16px;
-    padding: 56px 24px 24px;
-    width: 100%;
-    max-width: 360px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: visible;
-  }
+.login-card {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  padding: 56px 24px 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .mobile-login-icon {
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 80px;
-    background: #007bff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 2rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    z-index: 2;
-  }
+.login-icon {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  background: #007bff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 2;
+}
 
-  .mobile-login-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 24px;
-  }
+.login-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 24px;
+  margin-top: 48px;
+}
 
-  .mobile-login-card input {
-    width: 100%;
-    padding: 14px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    font-size: 1rem;
-  }
+.login-card input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+}
 
-  .mobile-login-card button {
-    width: 100%;
-    padding: 14px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 16px;
-  }
+.login-card button {
+  width: 100%;
+  padding: 14px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
 
-  .mobile-login-card button:hover {
-    background: #0056b3;
-  }
+.login-card button:hover {
+  background: #0056b3;
+}
 
-  .mobile-login-options {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    font-size: 0.9rem;
-    margin-bottom: 16px;
-  }
-
-  .mobile-login-options a {
-    color: #007bff;
-    text-decoration: none;
-  }
-
-  .mobile-login-footer {
-    font-size: 0.9rem;
-    text-align: center;
-  }
-
-  .mobile-login-footer a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  #result {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: red;
-    margin-bottom: 8px;
-  }
+#result {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: red;
+  margin-bottom: 8px;
 }
 
 /* === DARK MODE === */
@@ -302,8 +277,7 @@ button:hover {
 
   .app-header,
   .card,
-  .login-card,
-  .mobile-login-card {
+  .login-card {
     background: #2a2a2a;
     color: white;
     box-shadow: 0 4px 12px rgba(255,255,255,0.05);
@@ -311,22 +285,19 @@ button:hover {
 
   input,
   button,
-  .login-card input,
-  .mobile-login-card input {
+  .login-card input {
     background: #3a3a3a;
     color: white;
     border: 1px solid #555;
   }
 
   input:focus,
-  .login-card input:focus,
-  .mobile-login-card input:focus {
+  .login-card input:focus {
     border-color: #66b2ff;
   }
 
   button:hover,
-  .login-card button:hover,
-  .mobile-login-card button:hover {
+  .login-card button:hover {
     background: #3399ff;
   }
 
@@ -368,47 +339,13 @@ button:hover {
     background: #e63946;
   }
 
-  #result {
-    color: #ff4d4d;
-  }
-
-  .mobile-login-icon {
+  .login-icon {
     background: #3399ff;
     color: white;
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    box-shadow: 0 4px 12px rgba(255,255,255,0.1);
-    z-index: 2;
   }
 
-  .mobile-login-title {
+  .login-title {
     color: #f0f0f0;
-  }
-
-  .mobile-login-options a,
-  .mobile-login-footer a {
-    color: #66b2ff;
-  }
-
-  .mobile-login-card button:hover {
-    background: #66b2ff;
-  }
-
-  .mobile-login-card input::placeholder {
-    color: #ccc;
-  }
-
-  .mobile-login-card input:focus {
-    border-color: #66b2ff;
   }
 
   #result {
