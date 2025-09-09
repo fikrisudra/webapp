@@ -4,17 +4,11 @@
   <meta charset="UTF-8" />
   <title>Dashboard - MyProduction</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- ✅ Theme adaptif -->
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
-
-  <!-- ✅ PWA support -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="manifest" href="manifest.json" />
-
-  <!-- ✅ Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
@@ -32,6 +26,11 @@
       <a href="stationery.html" class="card card-menu">
         <i class="fas fa-pencil-alt"></i>
         <span>Pengambilan ATK</span>
+      </a>
+
+      <a href="manage-users.html" class="card card-menu" id="manageUsersCard" style="display: none;">
+        <i class="fas fa-users-cog"></i>
+        <span>Manage Users</span>
       </a>
     </div>
   </main>
@@ -53,16 +52,18 @@
       window.location.href = "index.html";
     }
 
-    // ✅ Service Worker untuk PWA
+    const role = localStorage.getItem("role");
+    if (role === "Admin") {
+      document.getElementById("manageUsersCard").style.display = "flex";
+    }
+
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").then(() =>
         console.log("Service Worker Registered")
       );
     }
 
-    // ✅ Install Prompt (tanpa tombol)
     let deferredPrompt;
-
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
