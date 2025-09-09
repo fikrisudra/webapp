@@ -198,6 +198,85 @@ button:hover {
   animation: none;
 }
 
+/* === LOGIN PAGE HORIZONTAL LAYOUT === */
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 24px;
+}
+
+.login-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 24px;
+}
+
+.user-icon {
+  width: 100px;
+  height: 100px;
+  background: #007bff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.vertical-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  margin-top: 16px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007bff;
+  text-align: center;
+}
+
+.login-card-horizontal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: white;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  width: 320px;
+}
+
+.login-card-horizontal input {
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.login-btn {
+  padding: 14px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background: #0056b3;
+}
+
+.login-card-horizontal #result {
+  margin-top: 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
 /* === BOTTOM NAVIGATION === */
 .bottom-nav {
   position: fixed;
@@ -242,7 +321,8 @@ button:hover {
 
   .app-header,
   .card,
-  .login-card {
+  .login-card,
+  .login-card-horizontal {
     background: #2a2a2a;
     color: white;
     box-shadow: 0 4px 12px rgba(255,255,255,0.05);
@@ -250,19 +330,22 @@ button:hover {
 
   input,
   button,
-  .login-card input {
+  .login-card input,
+  .login-card-horizontal input {
     background: #3a3a3a;
     color: white;
     border: 1px solid #555;
   }
 
   input:focus,
-  .login-card input:focus {
+  .login-card input:focus,
+  .login-card-horizontal input:focus {
     border-color: #66b2ff;
   }
 
   button:hover,
-  .login-card button:hover {
+  .login-card button:hover,
+  .login-btn:hover {
     background: #3399ff;
   }
 
@@ -286,37 +369,3 @@ button:hover {
   .bottom-nav button {
     color: #66b2ff;
   }
-
-  .bottom-nav button:hover {
-    color: #3399ff;
-  }
-
-  .app-header h1 {
-    color: #f0f0f0;
-  }
-
-  .logout-btn {
-    background: #ff4d4d;
-    color: white;
-  }
-
-  .logout-btn:hover {
-    background: #e63946;
-  }
-
-  .login-card #result {
-    color: #ff4d4d;
-  }
-
-  .logo-circle {
-    background: #3399ff;
-    color: white;
-    width: 120px;
-    height: 120px;
-  }
-
-  .logo-text {
-    color: #66b2ff;
-    font-size: 2.5rem;
-  }
-}
