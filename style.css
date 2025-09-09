@@ -1,6 +1,4 @@
-/* ============================= */
-/* === GLOBAL RESET & LAYOUT === */
-/* ============================= */
+/* === RESET & GLOBAL === */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,71 +14,7 @@ body {
   overflow: hidden;
 }
 
-/* ============================= */
-/* === INDEX.HTML (LOGIN) ====== */
-/* ============================= */
-.login-box {
-  margin-top: 32px;
-  padding: 32px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  width: 100%;
-  max-width: 100%;
-}
-
-.login-box h2 {
-  text-align: center;
-  margin-bottom: 24px;
-  color: #333;
-  font-size: 2rem;
-}
-
-.input-group {
-  margin-bottom: 20px;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  transition: border-color 0.3s;
-}
-
-.input-group input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-button {
-  width: 100%;
-  padding: 16px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-button:hover {
-  background: #0056b3;
-}
-
-#result {
-  margin-top: 20px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-/* ============================= */
-/* === DASHBOARD.HTML ========= */
-/* ============================= */
+/* === HEADER === */
 .app-header {
   position: fixed;
   top: 0;
@@ -97,6 +31,7 @@ button:hover {
   color: #333;
 }
 
+/* === CONTENT === */
 .app-content {
   margin-top: 72px;
   margin-bottom: 72px;
@@ -105,20 +40,23 @@ button:hover {
   flex: 1;
 }
 
+/* === CARD STYLE === */
 .card-grid {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.card {
+.card,
+.login-card {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   padding: 20px;
 }
 
-.card h3 {
+.card h3,
+.login-card h2 {
   margin-bottom: 12px;
   font-size: 1.2rem;
   color: #007bff;
@@ -129,25 +67,55 @@ button:hover {
   font-size: 1rem;
 }
 
-.card button {
+.input-group {
+  margin-bottom: 16px;
+}
+
+.input-group input {
   width: 100%;
-  padding: 12px;
-  background: #dc3545;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.input-group input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background: #007bff;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 10px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
+}
+
+button:hover {
+  background: #0056b3;
+}
+
+.card button {
+  background: #dc3545;
 }
 
 .card button:hover {
   background: #c82333;
 }
 
-/* ============================= */
-/* === BOTTOM NAVIGATION ====== */
-/* ============================= */
+#result {
+  margin-top: 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* === BOTTOM NAVIGATION === */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -174,21 +142,19 @@ button:hover {
   color: #0056b3;
 }
 
-/* ============================= */
-/* === DARK MODE SUPPORT ====== */
-/* ============================= */
+/* === DARK MODE === */
 @media (prefers-color-scheme: dark) {
   body {
     background: linear-gradient(to bottom right, #1e1e1e, #2c2c2c);
     color: #f0f0f0;
   }
 
-  .login-box,
+  .app-header,
   .card,
-  .app-header {
+  .login-card {
     background: #2a2a2a;
     color: white;
-    box-shadow: 0 8px 20px rgba(255,255,255,0.05);
+    box-shadow: 0 4px 12px rgba(255,255,255,0.05);
   }
 
   input,
@@ -206,32 +172,6 @@ button:hover {
     background: #3399ff;
   }
 
-  .card h3 {
+  .card h3,
+  .login-card h2 {
     color: #66b2ff;
-  }
-
-  .card button {
-    background: #ff4d4d;
-  }
-
-  .card button:hover {
-    background: #e63946;
-  }
-
-  .bottom-nav {
-    background: #2a2a2a;
-    border-top: 1px solid #444;
-  }
-
-  .bottom-nav button {
-    color: #66b2ff;
-  }
-
-  .bottom-nav button:hover {
-    color: #3399ff;
-  }
-
-  .app-header h1 {
-    color: #f0f0f0;
-  }
-}
