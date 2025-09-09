@@ -4,15 +4,11 @@
   <meta charset="UTF-8" />
   <title>Manage Users - MyProduction</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- ✅ Theme adaptif & PWA support -->
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="manifest" href="manifest.json" />
-
-  <!-- ✅ Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
@@ -26,7 +22,6 @@
   </header>
 
   <main class="app-content">
-    <!-- ✅ Form Tambah/Edit -->
     <div class="card">
       <h3>Tambah / Edit User</h3>
       <div class="input-group"><input type="number" id="employeeId" placeholder="Employee ID" /></div>
@@ -38,7 +33,6 @@
       <p id="formResult" style="margin-top: 12px; font-weight: 600;"></p>
     </div>
 
-    <!-- ✅ Tabel User + Pencarian + Export -->
     <div class="card">
       <h3>Daftar Pengguna</h3>
       <div class="input-group">
@@ -58,6 +52,18 @@
       </table>
     </div>
   </main>
+
+  <!-- ✅ Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button onclick="location.href='dashboard.html'">
+      <i class="fas fa-home"></i>
+      <span>Dashboard</span>
+    </button>
+    <button onclick="location.href='profile.html'">
+      <i class="fas fa-user"></i>
+      <span>Profile</span>
+    </button>
+  </nav>
 
   <script>
     const role = localStorage.getItem("role");
@@ -189,7 +195,6 @@
 
     loadUsers();
 
-    // ✅ PWA Service Worker & Install Prompt
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").then(() =>
         console.log("Service Worker Registered")
