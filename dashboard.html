@@ -5,6 +5,7 @@
   <title>Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="dashboard-page">
@@ -27,9 +28,15 @@
   </main>
 
   <nav class="bottom-nav">
-    <button onclick="goTo('home')">Beranda</button>
-    <button onclick="goTo('users')">Pengguna</button>
-    <button onclick="goTo('profile')">Profil</button>
+    <button onclick="goTo('home')">
+      <i class="fas fa-house"></i><span>Beranda</span>
+    </button>
+    <button onclick="goTo('users')">
+      <i class="fas fa-users"></i><span>Pengguna</span>
+    </button>
+    <button onclick="goTo('profile')">
+      <i class="fas fa-user-circle"></i><span>Profil</span>
+    </button>
   </nav>
 
   <script>
@@ -49,7 +56,7 @@
     }
 
     function goTo(page) {
-      alert("Navigasi ke: " + page); // Ganti dengan SPA routing nanti
+      alert("Navigasi ke: " + page);
     }
   </script>
 </body>

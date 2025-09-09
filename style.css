@@ -123,7 +123,7 @@ button:hover {
   font-size: 1rem;
 }
 
-/* === BOTTOM NAVIGATION === */
+/* === BOTTOM NAVIGATION WITH ICONS === */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -133,17 +133,25 @@ button:hover {
   border-top: 1px solid #ccc;
   display: flex;
   justify-content: space-around;
-  padding: 12px 0;
+  padding: 10px 0;
   z-index: 100;
 }
 
 .bottom-nav button {
   background: none;
   border: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #007bff;
   font-weight: 600;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.bottom-nav i {
+  font-size: 1.2rem;
 }
 
 .bottom-nav button:hover {
@@ -172,4 +180,39 @@ button:hover {
   }
 
   input:focus {
-    border-color: #66
+    border-color: #66b2ff;
+  }
+
+  button:hover {
+    background: #3399ff;
+  }
+
+  .card h3 {
+    color: #66b2ff;
+  }
+
+  .card button {
+    background: #ff4d4d;
+  }
+
+  .card button:hover {
+    background: #e63946;
+  }
+
+  .bottom-nav {
+    background: #2a2a2a;
+    border-top: 1px solid #444;
+  }
+
+  .bottom-nav button {
+    color: #66b2ff;
+  }
+
+  .bottom-nav button:hover {
+    color: #3399ff;
+  }
+
+  .app-header h1 {
+    color: #f0f0f0;
+  }
+}
