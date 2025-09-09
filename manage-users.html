@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Manage Users - MyProduction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ Theme adaptif & PWA support -->
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- ✅ Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-page">
+  <header class="app-header">
+    <h1>Manage Users</h1>
+    <button class="logout-btn" onclick="logout()">
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
+  </header>
+
+  <main class="app-content">
+    <!-- ✅ Form Tambah/Edit -->
+    <div class="card">
+      <h3>Tambah / Edit User</h3>
+      <div class="input-group"><input type="number" id="employeeId" placeholder="Employee ID" /></div>
+      <div class="input-group"><input type="text" id="fullName" placeholder="Full Name" /></div>
+      <div class="input-group"><input type="email" id="email" placeholder="Email" /></div>
+      <div class="input-group"><input type="text" id="role" placeholder="Role (Admin/User)" /></div>
+      <div class="input-group"><input type="text" id="password" placeholder="Password" /></div>
+      <button onclick="saveUser()">Simpan</button>
+      <p id="formResult" style="margin-top: 12px; font-weight: 600;"></p>
+    </div>
+
+    <!-- ✅ Tabel User + Pencarian + Export -->
+    <div class="card">
+      <h3>Daftar Pengguna</h3>
+      <div class="input-group">
+        <input type="text" id="searchInput" placeholder="Cari berdasarkan nama atau email..." oninput="filterUsers()" />
+      </div>
+      <div class="input-group">
+        <button onclick="exportCSV()">Export CSV</button>
+        <button onclick="exportJSON()">Export JSON</button>
+      </div>
+      <table id="userTable">
+        <thead>
+          <tr>
+            <th>ID</th><th>Nama</th><th>Email</th><th>Role</th><th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script>
+    const role = localStorage.getItem("role");
+    if (role !== "Admin") {
+      alert("❌ Akses ditolak. Halaman ini hanya untuk Admin.");
+      window.location.href = "dashboard.html";
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    let allUsers = [];
+
+    async function loadUsers() {
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=listUsers");
+      allUsers = await res.json();
+      renderUsers(allUsers);
+    }
+
+    function renderUsers(users) {
+      const tbody = document.querySelector("#userTable tbody");
+      tbody.innerHTML = "";
+      users.forEach(user => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${user.employeeId}</td>
+          <td>${user.fullName}</td>
+          <td>${user.email}</td>
+          <td>${user.role}</td>
+          <td>
+            <button onclick='editUser(${user.employeeId})'>Edit</button>
+            <button onclick='deleteUser(${user.employeeId})'>Hapus</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function filterUsers() {
+      const keyword = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = allUsers.filter(u =>
+        u.fullName.toLowerCase().includes(keyword) ||
+        u.email.toLowerCase().includes(keyword)
+      );
+      renderUsers(filtered);
+    }
+
+    async function saveUser() {
+      const employeeId = document.getElementById("employeeId").value.trim();
+      const fullName = document.getElementById("fullName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const role = document.getElementById("role").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const result = document.getElementById("formResult");
+
+      if (!employeeId || !fullName || !email || !role || !password) {
+        result.textContent = "⚠️ Semua kolom harus diisi.";
+        result.style.color = "red";
+        return;
+      }
+
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+        method: "POST",
+        body: JSON.stringify({
+          action: "saveUser",
+          employeeId,
+          fullName,
+          email,
+          role,
+          password
+        }),
+        headers: { "Content-Type": "text/plain;charset=utf-8" }
+      });
+
+      const data = await res.json();
+      result.textContent = data.message;
+      result.style.color = data.status === "success" ? "green" : "red";
+      loadUsers();
+    }
+
+    async function deleteUser(id) {
+      if (!confirm("Yakin ingin menghapus user ini?")) return;
+
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+        method: "POST",
+        body: JSON.stringify({ action: "deleteUser", employeeId: id }),
+        headers: { "Content-Type": "text/plain;charset=utf-8" }
+      });
+
+      const data = await res.json();
+      alert(data.message);
+      loadUsers();
+    }
+
+    function editUser(id) {
+      const user = allUsers.find(u => String(u.employeeId) === String(id));
+      document.getElementById("employeeId").value = user.employeeId;
+      document.getElementById("fullName").value = user.fullName;
+      document.getElementById("email").value = user.email;
+      document.getElementById("role").value = user.role;
+      document.getElementById("password").value = "";
+    }
+
+    function exportCSV() {
+      let csv = "Employee ID,Full Name,Email,Role\n";
+      allUsers.forEach(u => {
+        csv += `${u.employeeId},"${u.fullName}","${u.email}",${u.role}\n`;
+      });
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "users.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function exportJSON() {
+      const blob = new Blob([JSON.stringify(allUsers, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "users.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    loadUsers();
+
+    // ✅ PWA Service Worker & Install Prompt
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").then(() =>
+        console.log("Service Worker Registered")
+      );
+    }
+
+    let deferredPrompt;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log("Install prompt captured");
+    });
+  </script>
+</body>
+</html>
