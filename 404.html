@@ -29,19 +29,17 @@
       <p style="text-align:center; margin-bottom:16px;">
         The page you're looking for doesn't exist or has been moved.
       </p>
-      <button onclick="location.href='index.html'">Back to Dashboard</button>
+      <button onclick="location.href='dashboard.html'">Back to Dashboard</button>
     </div>
   </div>
 
   <script>
-    // ✅ Service Worker untuk PWA
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").then(() =>
         console.log("Service Worker Registered")
       );
     }
 
-    // ✅ Install Prompt (tanpa tombol)
     let deferredPrompt;
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();

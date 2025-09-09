@@ -27,9 +27,10 @@
       </div>
       <h2 class="login-title">503 - Service Unavailable</h2>
       <p style="text-align:center; margin-bottom:16px;">
-        The server is temporarily unavailable. Please try again later.
+        The server is temporarily unavailable.<br />
+        Please check your connection and try again.
       </p>
-      <button onclick="location.reload()">Try Again</button>
+      <button id="retry-button">Try Again</button>
     </div>
   </div>
 
@@ -47,6 +48,16 @@
       e.preventDefault();
       deferredPrompt = e;
       console.log("Install prompt captured");
+    });
+
+    // ✅ Try Again: reload halaman yang diminta sebelumnya
+    document.getElementById("retry-button").addEventListener("click", () => {
+      const referrer = document.referrer;
+      if (referrer && referrer !== location.href) {
+        location.href = referrer;
+      } else {
+        location.reload();
+      }
     });
   </script>
 </body>
