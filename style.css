@@ -83,13 +83,17 @@ body.dashboard-page {
   margin-bottom: 24px;
 }
 
-/* === CARD GRID === */
+/* === CARD GRID RESPONSIVE === */
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 16px;
-  justify-items: stretch;
-  align-items: stretch;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /* === CARD STYLE === */
@@ -127,7 +131,7 @@ body.dashboard-page {
   background: #0056b3;
 }
 
-/* === CARD MENU GRID STYLE === */
+/* === CARD MENU FLEXIBLE HEIGHT === */
 .card-menu {
   text-decoration: none;
   background: white;
@@ -143,7 +147,8 @@ body.dashboard-page {
   font-weight: 600;
   color: #007bff;
   text-align: center;
-  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: auto;
 }
 
 .card-menu i {
