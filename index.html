@@ -45,8 +45,9 @@
         const data = JSON.parse(text);
 
         if (data.status === "success") {
-          result.textContent = `Selamat datang, ${data.username} (${data.role})`;
-          result.style.color = "green";
+          localStorage.setItem("username", data.username);
+          localStorage.setItem("role", data.role);
+          window.location.href = "dashboard.html";
         } else {
           result.textContent = data.message;
           result.style.color = "red";
