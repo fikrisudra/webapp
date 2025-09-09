@@ -8,13 +8,16 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .logo-wrapper {
+    .login-card {
       position: relative;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin-bottom: -40px;
-      z-index: 1;
+    }
+
+    .logo-inside {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
     }
 
     .logo-circle {
@@ -28,6 +31,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       color: white;
       font-size: 1.6rem;
+      margin: 0 auto;
     }
 
     .logo-text {
@@ -35,7 +39,6 @@
       font-size: 1rem;
       font-weight: 600;
       color: #007bff;
-      text-align: center;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -52,17 +55,15 @@
 </head>
 <body class="login-page">
   <main class="app-content">
-    <div class="logo-wrapper">
-      <div>
+    <div class="card login-card">
+      <div class="logo-inside">
         <div class="logo-circle">
           <i class="fas fa-lock"></i>
         </div>
         <div class="logo-text">myProduction</div>
       </div>
-    </div>
 
-    <div class="card login-card">
-      <div class="input-group">
+      <div class="input-group" style="margin-top: 56px;">
         <input type="text" id="username" placeholder="Username" required autocomplete="username" />
       </div>
       <div class="input-group">
