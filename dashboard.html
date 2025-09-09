@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Dashboard - MyProduction</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="dashboard-page">
   <header class="app-header">
@@ -18,17 +18,21 @@
 
   <main class="app-content">
     <div class="card-grid">
-
-      <!-- Card Menu Pengambilan ATK -->
-      <a href="pengambilan-atk.html" class="card card-menu">
+      <a href="stationery.html" class="card card-menu">
         <i class="fas fa-pencil-alt"></i>
-        <span>Pengambilan ATK</span>
+        <span>Stationery Request</span>
       </a>
-
+      <a href="employees.html" class="card card-menu">
+        <i class="fas fa-users"></i>
+        <span>Employee Data</span>
+      </a>
+      <a href="reports.html" class="card card-menu">
+        <i class="fas fa-chart-line"></i>
+        <span>Reports</span>
+      </a>
     </div>
   </main>
 
-  <!-- === BOTTOM NAVIGATION === -->
   <nav class="bottom-nav">
     <button onclick="location.href='dashboard.html'">
       <i class="fas fa-home"></i>
@@ -36,7 +40,7 @@
     </button>
     <button onclick="location.href='profile.html'">
       <i class="fas fa-user"></i>
-      <span>Profil</span>
+      <span>Profile</span>
     </button>
   </nav>
 
