@@ -155,7 +155,7 @@ button:hover {
   max-width: 360px;
   margin: auto;
   margin-top: 0;
-  padding: 64px 24px 24px;
+  padding: 80px 24px 32px;
   border-radius: 16px;
   background: white;
   box-shadow: 0 6px 16px rgba(0,0,0,0.1);
@@ -190,8 +190,8 @@ button:hover {
 
 .logo-text {
   margin-top: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: #007bff;
 }
 
