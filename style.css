@@ -44,17 +44,18 @@ body.dashboard-page {
   color: #333;
 }
 
-/* === LOGOUT BUTTON IN HEADER (kotak) === */
+/* === LOGOUT BUTTON IN HEADER (kotak kecil) === */
 .logout-btn {
   background: #dc3545;
   border: none;
   border-radius: 8px;
-  padding: 8px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: background 0.3s;
 }
