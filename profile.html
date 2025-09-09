@@ -4,17 +4,11 @@
   <meta charset="UTF-8" />
   <title>User Profile - MyProduction</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- ✅ Theme adaptif -->
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
-
-  <!-- ✅ PWA support -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="manifest" href="manifest.json" />
-
-  <!-- ✅ Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
@@ -60,7 +54,7 @@
         <input type="password" id="confirmPassword" placeholder="Confirm New Password" />
       </div>
       <button onclick="updatePassword()">Update Password</button>
-      <div id="result"></div>
+      <p id="result" style="margin-top: 12px; font-weight: 600;"></p>
     </div>
   </main>
 
@@ -81,7 +75,7 @@
       window.location.href = "index.html";
     }
 
-    const employeeId = localStorage.getItem("username"); // sekarang dianggap sebagai Employee ID (angka)
+    const employeeId = localStorage.getItem("username");
 
     async function loadProfile() {
       const res = await fetch("https://script.google.com/macros/s/AKfycbzzf-Imc7A8Pd_HSNjAv-Hc0dpGrpCZpDsPRfbwz93VeooDdrLTGHoDGHuHl4Z6Z9Qwbg/exec?employeeId=" + employeeId);
@@ -99,44 +93,51 @@
       const confirm = document.getElementById("confirmPassword").value.trim();
       const result = document.getElementById("result");
 
+      result.textContent = "";
+      result.style.color = "inherit";
+
       if (!current || !newPass || !confirm) {
-        result.textContent = "Semua kolom harus diisi.";
+        result.textContent = "⚠️ Semua kolom harus diisi.";
         result.style.color = "red";
         return;
       }
 
       if (newPass !== confirm) {
-        result.textContent = "Password baru tidak cocok.";
+        result.textContent = "⚠️ Password baru tidak cocok.";
         result.style.color = "red";
         return;
       }
 
-      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
-        method: "POST",
-        body: JSON.stringify({
-          action: "changePassword",
-          employeeId,
-          currentPassword: current,
-          newPassword: newPass
-        }),
-        headers: { "Content-Type": "text/plain;charset=utf-8" }
-      });
+      try {
+        const res = await fetch("https://script.google.com/macros/s/AKfycbzzf-Imc7A8Pd_HSNjAv-Hc0dpGrpCZpDsPRfbwz93VeooDdrLTGHoDGHuHl4Z6Z9Qwbg/exec", {
+          method: "POST",
+          body: JSON.stringify({
+            action: "changePassword",
+            employeeId,
+            currentPassword: current,
+            newPassword: newPass
+          }),
+          headers: { "Content-Type": "text/plain;charset=utf-8" }
+        });
 
-      const data = await res.json();
-      result.textContent = data.message;
-      result.style.color = data.status === "success" ? "green" : "red";
+        const data = await res.json();
+        result.textContent = data.message;
+        result.style.color = data.status === "success" ? "green" : "red";
+      } catch (error) {
+        result.textContent = "❌ Gagal terhubung ke server.";
+        result.style.color = "red";
+        console.error("Password update error:", error);
+      }
     }
 
     loadProfile();
 
-    // ✅ Service Worker untuk PWA
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").then(() =>
         console.log("Service Worker Registered")
       );
     }
 
-    // ✅ Install Prompt (tanpa tombol)
     let deferredPrompt;
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
