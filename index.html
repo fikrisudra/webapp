@@ -9,21 +9,31 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="login-page">
-  <div class="login-wrapper">
-    <div class="login-left">
-      <div class="user-icon">
+  <main class="mobile-login-container">
+    <div class="mobile-login-card">
+      <div class="mobile-login-icon">
         <i class="fas fa-user"></i>
       </div>
-      <div class="vertical-text">myProduction</div>
-    </div>
+      <h2 class="mobile-login-title">Member Login</h2>
 
-    <div class="login-card-horizontal">
-      <input type="text" id="username" placeholder="Username" required autocomplete="username" />
-      <input type="password" id="password" placeholder="Password" required autocomplete="current-password" />
-      <button class="login-btn" onclick="login()">MASUK</button>
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+
+      <button onclick="login()">Sign in</button>
+
+      <div class="mobile-login-options">
+        <label><input type="checkbox" /> Remember me</label>
+        <a href="#">Forgot Password?</a>
+      </div>
+
       <p id="result"></p>
+
+      <div class="mobile-login-footer">
+        <span>Don't have an account?</span>
+        <a href="#">Sign up here!</a>
+      </div>
     </div>
-  </div>
+  </main>
 
   <script>
     async function login() {

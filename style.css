@@ -150,133 +150,6 @@ button:hover {
   font-size: 1rem;
 }
 
-/* === BRANDING DI ATAS LOGIN CARD === */
-.branding {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
-}
-
-.logo-circle {
-  width: 120px;
-  height: 120px;
-  background: #007bff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  color: white;
-}
-
-.logo-text {
-  margin-top: 8px;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #007bff;
-  text-align: center;
-}
-
-/* === LOGIN CARD === */
-.login-card {
-  max-width: 360px;
-  height: 480px;
-  margin: auto;
-  margin-top: 160px;
-  padding: 80px 24px 32px;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-  text-align: center;
-  max-height: 90vh;
-  overflow-y: auto;
-  animation: none;
-}
-
-/* === LOGIN PAGE HORIZONTAL LAYOUT === */
-.login-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  padding: 24px;
-}
-
-.login-left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 24px;
-}
-
-.user-icon {
-  width: 100px;
-  height: 100px;
-  background: #007bff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-.vertical-text {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  margin-top: 16px;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #007bff;
-  text-align: center;
-}
-
-.login-card-horizontal {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: white;
-  padding: 32px;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-  width: 320px;
-}
-
-.login-card-horizontal input {
-  padding: 14px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 1rem;
-}
-
-.login-btn {
-  padding: 14px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.login-btn:hover {
-  background: #0056b3;
-}
-
-.login-card-horizontal #result {
-  margin-top: 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
 /* === BOTTOM NAVIGATION === */
 .bottom-nav {
   position: fixed;
@@ -312,6 +185,107 @@ button:hover {
   color: #0056b3;
 }
 
+/* === MOBILE LOGIN PAGE === */
+@media (max-width: 480px) {
+  .mobile-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 16px;
+    background: #e0e0e0;
+  }
+
+  .mobile-login-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    max-width: 360px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mobile-login-icon {
+    width: 80px;
+    height: 80px;
+    background: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .mobile-login-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 24px;
+  }
+
+  .mobile-login-card input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+
+  .mobile-login-card button {
+    width: 100%;
+    padding: 14px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+
+  .mobile-login-card button:hover {
+    background: #0056b3;
+  }
+
+  .mobile-login-options {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+
+  .mobile-login-options a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .mobile-login-footer {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .mobile-login-footer a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  #result {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: red;
+    margin-bottom: 8px;
+  }
+}
+
 /* === DARK MODE === */
 @media (prefers-color-scheme: dark) {
   body {
@@ -322,7 +296,7 @@ button:hover {
   .app-header,
   .card,
   .login-card,
-  .login-card-horizontal {
+  .mobile-login-card {
     background: #2a2a2a;
     color: white;
     box-shadow: 0 4px 12px rgba(255,255,255,0.05);
@@ -331,7 +305,7 @@ button:hover {
   input,
   button,
   .login-card input,
-  .login-card-horizontal input {
+  .mobile-login-card input {
     background: #3a3a3a;
     color: white;
     border: 1px solid #555;
@@ -339,13 +313,13 @@ button:hover {
 
   input:focus,
   .login-card input:focus,
-  .login-card-horizontal input:focus {
+  .mobile-login-card input:focus {
     border-color: #66b2ff;
   }
 
   button:hover,
   .login-card button:hover,
-  .login-btn:hover {
+  .mobile-login-card button:hover {
     background: #3399ff;
   }
 
@@ -369,3 +343,25 @@ button:hover {
   .bottom-nav button {
     color: #66b2ff;
   }
+
+  .bottom-nav button:hover {
+    color: #3399ff;
+  }
+
+  .app-header h1 {
+    color: #f0f0f0;
+  }
+
+  .logout-btn {
+    background: #ff4d4d;
+    color: white;
+  }
+
+  .logout-btn:hover {
+    background: #e63946;
+  }
+
+  #result {
+    color: #ff4d4d;
+  }
+}
