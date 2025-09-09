@@ -79,13 +79,14 @@ body.dashboard-page {
   flex: 1;
 }
 
-/* === CARD STYLE === */
+/* === CARD GRID === */
 .card-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 16px;
 }
 
+/* === CARD STYLE === */
 .card {
   background: white;
   border-radius: 12px;
@@ -104,6 +105,43 @@ body.dashboard-page {
   font-size: 1rem;
 }
 
+.card button {
+  background: #dc3545;
+}
+
+.card button:hover {
+  background: #c82333;
+}
+
+/* === CARD MENU GRID === */
+.card-menu {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 32px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #007bff;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: background 0.3s, transform 0.2s;
+}
+
+.card-menu i {
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.card-menu:hover {
+  background: #e9f2ff;
+  transform: translateY(-2px);
+}
+
+/* === FORM INPUT === */
 .input-group {
   margin-bottom: 16px;
 }
@@ -135,14 +173,6 @@ button {
 
 button:hover {
   background: #0056b3;
-}
-
-.card button {
-  background: #dc3545;
-}
-
-.card button:hover {
-  background: #c82333;
 }
 
 #result {
@@ -283,6 +313,7 @@ button:hover {
 
   .app-header,
   .card,
+  .card-menu,
   .login-card {
     background: #2a2a2a;
     color: white;
@@ -307,7 +338,8 @@ button:hover {
     background: #3399ff;
   }
 
-  .card h3 {
+  .card h3,
+  .card-menu span {
     color: #66b2ff;
   }
 
@@ -317,6 +349,14 @@ button:hover {
 
   .card button:hover {
     background: #e63946;
+  }
+
+  .card-menu i {
+    color: #66b2ff;
+  }
+
+  .card-menu:hover {
+    background: #1f2f4d;
   }
 
   .bottom-nav {
