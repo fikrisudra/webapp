@@ -25,15 +25,14 @@
       <input type="password" id="password" placeholder="Password" required autocomplete="current-password" />
 
       <button onclick="login()">Sign in</button>
-
-      <!-- ✅ Tombol Install Web App -->
-      <button class="download-app-btn" onclick="showInstallPrompt()">
-        <i class="fas fa-download"></i> Install Web App
-      </button>
-
       <p id="result"></p>
     </div>
   </main>
+
+  <!-- ✅ Floating Install Button -->
+  <button class="floating-install-btn" onclick="showInstallPrompt()" title="Install Web App">
+    <i class="fas fa-download"></i>
+  </button>
 
   <script>
     async function login() {
