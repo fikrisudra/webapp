@@ -5,6 +5,16 @@
   padding: 0;
 }
 
+html {
+  background-color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #2a2a2a;
+  }
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background: #f8f9fa;
@@ -14,11 +24,10 @@ body {
   overflow: hidden;
 }
 
-/* === PAGE-SPECIFIC LAYOUT === */
+/* === PAGE-SPECIFIC === */
 body.login-page {
   justify-content: center;
   align-items: center;
-  background: #f8f9fa;
   padding: 16px;
 }
 
@@ -46,7 +55,7 @@ body.dashboard-page {
   color: #333;
 }
 
-/* === LOGOUT BUTTON IN HEADER === */
+/* === LOGOUT BUTTON === */
 .logout-btn {
   background: #dc3545;
   border: none;
@@ -83,7 +92,7 @@ body.dashboard-page {
   margin-bottom: 24px;
 }
 
-/* === CARD GRID RESPONSIVE === */
+/* === CARD GRID === */
 .card-grid {
   display: grid;
   gap: 16px;
@@ -96,7 +105,7 @@ body.dashboard-page {
   }
 }
 
-/* === CARD STYLE === */
+/* === CARD === */
 .card {
   background: white;
   border-radius: 12px;
@@ -131,7 +140,15 @@ body.dashboard-page {
   background: #0056b3;
 }
 
-/* === CARD MENU FLEXIBLE HEIGHT === */
+.card #result {
+  margin-top: 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  color: red;
+}
+
+/* === CARD MENU === */
 .card-menu {
   text-decoration: none;
   background: white;
@@ -148,7 +165,6 @@ body.dashboard-page {
   color: #007bff;
   text-align: center;
   width: 100%;
-  height: auto;
 }
 
 .card-menu i {
@@ -197,30 +213,7 @@ body.dashboard-page {
   cursor: not-allowed;
 }
 
-button {
-  width: 100%;
-  padding: 14px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #0056b3;
-}
-
-#result {
-  margin-top: 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-/* === BOTTOM NAVIGATION === */
+/* === BOTTOM NAV === */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -255,7 +248,7 @@ button:hover {
   color: #0056b3;
 }
 
-/* === RESPONSIVE LOGIN PAGE === */
+/* === LOGIN PAGE === */
 .login-container {
   display: flex;
   justify-content: center;
@@ -335,7 +328,7 @@ button:hover {
   background: #0056b3;
 }
 
-#result {
+.login-card #result {
   font-size: 0.9rem;
   font-weight: bold;
   color: red;
@@ -358,41 +351,18 @@ button:hover {
     box-shadow: 0 4px 12px rgba(255,255,255,0.05);
   }
 
-  input,
-  button,
+  .input-group input,
   .login-card input {
     background: #3a3a3a;
     color: white;
     border: 1px solid #555;
   }
 
-  input:focus,
+  .input-group input:focus,
   .login-card input:focus {
     border-color: #66b2ff;
   }
-
-  button:hover,
-  .login-card button:hover {
-    background: #3399ff;
-  }
-
-  .card h3,
-  .card-menu span {
-    color: #66b2ff;
-  }
-
-  .card button {
-    background: #ff4d4d;
-  }
-
-  .card button:hover {
-    background: #e63946;
-  }
-
-  .card-menu i {
-    color: #66b2ff;
-  }
-
+  
   .card-menu:hover {
     background: #1f2f4d;
   }
@@ -432,10 +402,6 @@ button:hover {
     color: #f0f0f0;
   }
 
-  #result {
-    color: #ff4d4d;
-  }
-
   .login-card {
     margin-top: 32px;
   }
@@ -455,18 +421,17 @@ button:hover {
   .input-group label {
     color: #ccc;
   }
-}
 
-html {
-  background-color: #ffffff;
-}
+  .login-card #result {
+    color: #ff4d4d;
+  }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    background-color: #2a2a2a;
+  .card #result {
+    color: #ff4d4d;
   }
 }
 
+/* === OPTIONAL INSTALL BUTTON === */
 .download-app-btn {
   width: 100%;
   padding: 14px;

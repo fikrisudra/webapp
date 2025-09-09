@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <title>Page Not Found</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#ffffff" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <!-- ✅ Theme adaptif -->
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
+
+  <!-- ✅ PWA support -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest" href="manifest.json" />
+
+  <!-- ✅ Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
   <style>
     body {
       background: #f8f9fa;
@@ -83,13 +92,29 @@
       }
     }
   </style>
-  <link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#007bff" />
 </head>
 <body>
   <i class="fas fa-exclamation-triangle not-found-icon"></i>
   <h1>Oops! Page Not Found</h1>
   <p>The page you're looking for doesn't exist or has been moved.</p>
   <button class="back-btn" onclick="location.href='dashboard.html'">Back to Dashboard</button>
+
+  <script>
+    // ✅ Service Worker untuk PWA
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").then(() =>
+        console.log("Service Worker Registered")
+      );
+    }
+
+    // ✅ Install Prompt (tanpa tombol)
+    let deferredPrompt;
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log("Install prompt captured");
+    });
+  </script>
 </body>
 </html>
