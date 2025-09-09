@@ -19,6 +19,13 @@
     </div>
   </div>
 
+  <!-- Bottom Navigation (Tanpa Area) -->
+  <div class="bottom-nav">
+    <button onclick="goTo('home')">Beranda</button>
+    <button onclick="goTo('users')">Pengguna</button>
+    <button onclick="goTo('profile')">Profil</button>
+  </div>
+
   <script>
     const username = localStorage.getItem("username");
     const role = localStorage.getItem("role");
@@ -33,6 +40,10 @@
     function logout() {
       localStorage.clear();
       window.location.href = "index.html";
+    }
+
+    function goTo(page) {
+      alert("Navigasi ke: " + page); // Ganti dengan routing SPA kamu nanti
     }
   </script>
 </body>
