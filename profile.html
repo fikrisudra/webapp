@@ -32,30 +32,30 @@
       <h3>Account Information</h3>
       <div class="input-group">
         <label for="name">Full Name</label>
-        <input type="text" id="name" value="Fikri Ramadhan" disabled />
+        <input type="text" id="name" disabled />
       </div>
       <div class="input-group">
         <label for="email">Email</label>
-        <input type="text" id="email" value="fikri@example.com" disabled />
+        <input type="text" id="email" disabled />
       </div>
       <div class="input-group">
         <label for="role">Role</label>
-        <input type="text" id="role" value="Admin" disabled />
+        <input type="text" id="role" disabled />
       </div>
     </div>
 
     <div class="card">
       <h3>Change Password</h3>
       <div class="input-group">
-        <input type="password" placeholder="Current Password" />
+        <input type="password" id="currentPassword" placeholder="Current Password" />
       </div>
       <div class="input-group">
-        <input type="password" placeholder="New Password" />
+        <input type="password" id="newPassword" placeholder="New Password" />
       </div>
       <div class="input-group">
-        <input type="password" placeholder="Confirm New Password" />
+        <input type="password" id="confirmPassword" placeholder="Confirm New Password" />
       </div>
-      <button>Update Password</button>
+      <button onclick="updatePassword()">Update Password</button>
       <div id="result"></div>
     </div>
   </main>
@@ -77,6 +77,53 @@
       window.location.href = "index.html";
     }
 
+    const username = localStorage.getItem("username");
+
+    async function loadProfile() {
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?username=" + username);
+      const data = await res.json();
+
+      document.getElementById("name").value = data.fullName || "";
+      document.getElementById("email").value = data.email || "";
+      document.getElementById("role").value = data.role || "";
+    }
+
+    async function updatePassword() {
+      const current = document.getElementById("currentPassword").value.trim();
+      const newPass = document.getElementById("newPassword").value.trim();
+      const confirm = document.getElementById("confirmPassword").value.trim();
+      const result = document.getElementById("result");
+
+      if (!current || !newPass || !confirm) {
+        result.textContent = "Semua kolom harus diisi.";
+        result.style.color = "red";
+        return;
+      }
+
+      if (newPass !== confirm) {
+        result.textContent = "Password baru tidak cocok.";
+        result.style.color = "red";
+        return;
+      }
+
+      const res = await fetch("https://script.google.com/macros/s/AKfycbx_8d5qjDmKnM70XogwFkCelQDzkRUMfMDjKN6A-h8BYmUmZWQQVKhQhbfnKYvKhnDT/exec", {
+        method: "POST",
+        body: JSON.stringify({
+          action: "changePassword",
+          username,
+          currentPassword: current,
+          newPassword: newPass
+        }),
+        headers: { "Content-Type": "text/plain;charset=utf-8" }
+      });
+
+      const data = await res.json();
+      result.textContent = data.message;
+      result.style.color = data.status === "success" ? "green" : "red";
+    }
+
+    loadProfile();
+
     // ✅ Service Worker untuk PWA
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").then(() =>
@@ -86,7 +133,6 @@
 
     // ✅ Install Prompt (tanpa tombol)
     let deferredPrompt;
-
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
