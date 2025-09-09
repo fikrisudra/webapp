@@ -44,7 +44,7 @@ body.dashboard-page {
   color: #333;
 }
 
-/* === LOGOUT BUTTON IN HEADER (kotak kecil) === */
+/* === LOGOUT BUTTON IN HEADER === */
 .logout-btn {
   background: #dc3545;
   border: none;
@@ -154,60 +154,48 @@ button:hover {
 .login-card {
   max-width: 360px;
   margin: auto;
-  margin-top: 40px;
-  padding: 24px;
+  margin-top: 0;
+  padding: 64px 24px 24px;
   border-radius: 16px;
   background: white;
   box-shadow: 0 6px 16px rgba(0,0,0,0.1);
   text-align: center;
   max-height: 90vh;
   overflow-y: auto;
-  animation: fadeIn 0.4s ease-out;
+  animation: none;
 }
 
-.login-card .input-group {
-  margin-bottom: 16px;
+/* === BRANDING DI ATAS LOGIN CARD === */
+.branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: -40px;
+  z-index: 10;
 }
 
-.login-card input {
-  width: 100%;
-  padding: 14px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  font-size: 1rem;
-  transition: all 0.2s ease-in-out;
-}
-
-.login-card button {
-  width: 100%;
-  padding: 14px;
+.logo-circle {
+  width: 80px;
+  height: 80px;
   background: #007bff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   color: white;
-  border: none;
-  border-radius: 10px;
+  font-size: 1.6rem;
+}
+
+.logo-text {
+  margin-top: 8px;
   font-size: 1rem;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  color: #007bff;
 }
 
-.login-card button:hover {
-  background: #0056b3;
-}
-
-.login-card #result {
-  margin-top: 12px;
-  font-size: 0.95rem;
-  color: #dc3545;
-}
-
-/* === ANIMASI MASUK === */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* === BOTTOM NAVIGATION WITH ICONS === */
+/* === BOTTOM NAVIGATION === */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -315,5 +303,14 @@ button:hover {
 
   .login-card #result {
     color: #ff4d4d;
+  }
+
+  .logo-circle {
+    background: #3399ff;
+    color: white;
+  }
+
+  .logo-text {
+    color: #66b2ff;
   }
 }
