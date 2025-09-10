@@ -53,7 +53,6 @@
     </div>
   </main>
 
-  <!-- ✅ Bottom Navigation -->
   <nav class="bottom-nav">
     <button onclick="location.href='dashboard.html'">
       <i class="fas fa-home"></i>
@@ -78,9 +77,10 @@
     }
 
     let allUsers = [];
+    let isEditing = false;
 
     async function loadUsers() {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbwI7__sas8yt9WNBFpz_qvdqU0JqOh93qovhv7O2isD3dVgW_ZbPqX_Qv2KSh8BHbc8Tw/exec?action=listUsers");
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=listUsers");
       allUsers = await res.json();
       renderUsers(allUsers);
     }
@@ -121,7 +121,7 @@
       const password = document.getElementById("password").value.trim();
       const result = document.getElementById("formResult");
 
-      if (!employeeId || !fullName || !email || !role || !password) {
+      if (!employeeId || !fullName || !email || !role || (!password && !isEditing)) {
         result.textContent = "⚠️ Semua kolom harus diisi.";
         result.style.color = "red";
         return;
@@ -135,7 +135,7 @@
           fullName,
           email,
           role,
-          password
+          password: password || "(unchanged)"
         }),
         headers: { "Content-Type": "text/plain;charset=utf-8" }
       });
@@ -143,6 +143,7 @@
       const data = await res.json();
       result.textContent = data.message;
       result.style.color = data.status === "success" ? "green" : "red";
+      isEditing = false;
       loadUsers();
     }
 
@@ -167,6 +168,7 @@
       document.getElementById("email").value = user.email;
       document.getElementById("role").value = user.role;
       document.getElementById("password").value = "";
+      isEditing = true;
     }
 
     function exportCSV() {
