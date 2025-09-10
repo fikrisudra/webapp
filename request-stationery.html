@@ -21,10 +21,41 @@
   </header>
 
   <main class="app-content">
-    <div id="requestForm"></div>
+    <div class="form-card" id="mainForm">
+      <h3>Request Item</h3>
+      <div class="input-group">
+        <label>Item Name</label>
+        <select id="itemName" onchange="syncItemCode(this)">
+          <option value="">Select Item</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Item Code</label>
+        <input type="text" id="itemCode" placeholder="Auto-filled" disabled />
+      </div>
+      <div class="input-group">
+        <label>Quantity</label>
+        <input type="number" id="quantity" placeholder="Quantity" />
+      </div>
+      <div class="input-group">
+        <label>Notes</label>
+        <input type="text" id="notes" placeholder="Notes" />
+      </div>
+      <div class="input-group">
+        <label>Delegate</label>
+        <input type="text" id="delegate" placeholder="Delegate" />
+      </div>
+      <div class="input-group">
+        <label>Photo</label>
+        <input type="file" id="photo" accept="image/*" capture="environment" onchange="uploadImage(this)" />
+      </div>
+      <input type="hidden" id="photoURL" />
+      <button class="btn-primary" onclick="addItem()"><i class="fas fa-plus"></i> Add Item</button>
+    </div>
 
-    <div class="form-card">
-      <button class="btn-primary" onclick="addItem()">Add Item</button>
+    <div id="itemList"></div>
+
+    <div class="form-card" id="submitCard" style="display:none;">
       <button class="btn-primary" onclick="submitRequest()">Submit Request</button>
       <p id="requestMessage" style="display:none; font-weight:600;"></p>
     </div>
@@ -36,140 +67,144 @@
   </nav>
 
   <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbzohxtlvsJOLDDBx8W2_ltR-VQJvMbeDNUfvgFDoO8MpeyHVaNyWpAbVNUl4PtFjqw-pQ/exec";
-  let stockMap = {};
-  let stockList = [];
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzohxtlvsJOLDDBx8W2_ltR-VQJvMbeDNUfvgFDoO8MpeyHVaNyWpAbVNUl4PtFjqw-pQ/exec";
+    let stockMap = {};
+    let stockList = [];
+    let requestItems = [];
 
-  function logout() {
-    localStorage.clear();
-    window.location.href = "index.html";
-  }
+    function logout() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
 
-  async function loadStock() {
-    const res = await fetch(`${scriptURL}?action=getStock`);
-    const stock = await res.json();
-    stock.forEach(item => {
-      stockMap[item.itemcode] = item;
-      stockList.push(item);
-    });
-  }
+    async function loadStock() {
+      const res = await fetch(`${scriptURL}?action=getStock`);
+      const stock = await res.json();
+      stock.forEach(item => {
+        stockMap[item.itemcode] = item;
+        stockList.push(item);
+      });
 
-  function addItem() {
-    const container = document.createElement("div");
-    container.className = "form-card item-block";
-    container.innerHTML = `
-      <h3>Item Request</h3>
-      <div class="input-group">
-        <label>Item Name</label>
-        <select onchange="syncItemCode(this)">
-          <option value="">Select Item</option>
-          ${stockList.map(item => `<option value="${item.itemname}">${item.itemname}</option>`).join("")}
-        </select>
-      </div>
-      <div class="input-group">
-        <label>Item Code</label>
-        <input type="text" placeholder="Auto-filled" disabled />
-      </div>
-      <div class="input-group">
-        <label>Quantity</label>
-        <input type="number" placeholder="Quantity" />
-      </div>
-      <div class="input-group">
-        <label>Notes</label>
-        <input type="text" placeholder="Notes" />
-      </div>
-      <div class="input-group">
-        <label>Delegate</label>
-        <input type="text" placeholder="Delegate" />
-      </div>
-      <div class="input-group">
-        <label>Photo</label>
-        <input type="file" accept="image/*" capture="environment" onchange="uploadImage(this)" />
-      </div>
-      <input type="hidden" class="photoURL" />
-    `;
-    document.getElementById("requestForm").appendChild(container);
-  }
-
-  function syncItemCode(select) {
-    const itemName = select.value;
-    const block = select.closest(".item-block");
-    const codeInput = block.querySelectorAll("input")[0];
-    const matched = stockList.find(item => item.itemname === itemName);
-    codeInput.value = matched ? matched.itemcode : "";
-  }
-
-  async function uploadImage(fileInput) {
-    const file = fileInput.files[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append("image", file);
-    const res = await fetch("https://api.imgbb.com/1/upload?key=35d4bcf41afaa32795772ceedc8bc89a", {
-      method: "POST",
-      body: formData
-    });
-    const data = await res.json();
-    const urlInput = fileInput.closest(".item-block").querySelector(".photoURL");
-    urlInput.value = data.data.url;
-  }
-
-  async function submitRequest() {
-    const blocks = document.querySelectorAll(".item-block");
-    for (const block of blocks) {
-      const inputs = block.querySelectorAll("input");
-      const selects = block.querySelectorAll("select");
-      const name = selects[0].value;
-      const code = inputs[0].value;
-      const qty = parseInt(inputs[1].value);
-      const notes = inputs[2].value;
-      const delegate = inputs[3].value;
-      const photoURL = inputs[4].value;
-
-      const stock = stockMap[code];
-      if (stock && qty > parseInt(stock.stock)) {
-        alert(`❌ Quantity exceeds stock for ${code}`);
-        return;
-      }
-
-      const payload = {
-        action: "requestItem",
-        code,
-        name,
-        quantity: qty,
-        notes,
-        delegate,
-        photoURL
-      };
-
-      await fetch(scriptURL, {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: { "Content-Type": "text/plain;charset=utf-8" }
+      const select = document.getElementById("itemName");
+      stockList.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.itemname;
+        option.textContent = item.itemname;
+        select.appendChild(option);
       });
     }
 
-    const msg = document.getElementById("requestMessage");
-    msg.textContent = "✅ Request submitted successfully.";
-    msg.style.color = "green";
-    msg.style.display = "block";
-    setTimeout(() => msg.style.display = "none", 5000);
-    document.getElementById("requestForm").innerHTML = "";
-  }
+    function syncItemCode(select) {
+      const itemName = select.value;
+      const matched = stockList.find(item => item.itemname === itemName);
+      document.getElementById("itemCode").value = matched ? matched.itemcode : "";
+    }
 
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").then(() =>
-      console.log("Service Worker Registered")
-    );
-  }
+    function addItem() {
+      const name = document.getElementById("itemName").value;
+      const code = document.getElementById("itemCode").value;
+      const qty = parseInt(document.getElementById("quantity").value);
+      const notes = document.getElementById("notes").value;
+      const delegate = document.getElementById("delegate").value;
+      const photoURL = document.getElementById("photoURL").value;
 
-  let deferredPrompt;
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    console.log("Install prompt captured");
-  });
+      if (!name || !code || !qty || qty <= 0) {
+        alert("❌ Please fill in all required fields.");
+        return;
+      }
 
-  loadStock();
-</script>
+      requestItems.push({ name, code, quantity: qty, notes, delegate, photoURL });
+      renderItemList();
+      resetMainForm();
+    }
+
+    function renderItemList() {
+      const container = document.getElementById("itemList");
+      container.innerHTML = "";
+      requestItems.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "form-card";
+        card.innerHTML = `
+          <h4>Item ${index + 1}</h4>
+          <p><strong>Name:</strong> ${item.name}</p>
+          <p><strong>Code:</strong> ${item.code}</p>
+          <p><strong>Quantity:</strong> ${item.quantity}</p>
+          <p><strong>Notes:</strong> ${item.notes}</p>
+          <p><strong>Delegate:</strong> ${item.delegate}</p>
+          ${item.photoURL ? `<img src="${item.photoURL}" style="max-width:100%; border-radius:4px;" />` : ""}
+        `;
+        container.appendChild(card);
+      });
+
+      document.getElementById("submitCard").style.display = requestItems.length > 0 ? "block" : "none";
+    }
+
+    function resetMainForm() {
+      document.getElementById("itemName").value = "";
+      document.getElementById("itemCode").value = "";
+      document.getElementById("quantity").value = "";
+      document.getElementById("notes").value = "";
+      document.getElementById("delegate").value = "";
+      document.getElementById("photo").value = "";
+      document.getElementById("photoURL").value = "";
+    }
+
+    async function uploadImage(fileInput) {
+      const file = fileInput.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append("image", file);
+      const res = await fetch("https://api.imgbb.com/1/upload?key=35d4bcf41afaa32795772ceedc8bc89a", {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      document.getElementById("photoURL").value = data.data.url;
+    }
+
+    async function submitRequest() {
+      for (const item of requestItems) {
+        const stock = stockMap[item.code];
+        if (stock && item.quantity > parseInt(stock.stock)) {
+          alert(`❌ Quantity exceeds stock for ${item.code}`);
+          return;
+        }
+
+        const payload = {
+          action: "requestItem",
+          ...item
+        };
+
+        await fetch(scriptURL, {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: { "Content-Type": "text/plain;charset=utf-8" }
+        });
+      }
+
+      const msg = document.getElementById("requestMessage");
+      msg.textContent = "✅ Request submitted successfully.";
+      msg.style.color = "green";
+      msg.style.display = "block";
+      setTimeout(() => msg.style.display = "none", 5000);
+      requestItems = [];
+      renderItemList();
+    }
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").then(() =>
+        console.log("Service Worker Registered")
+      );
+    }
+
+    let deferredPrompt;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log("Install prompt captured");
+    });
+
+    loadStock();
+  </script>
 </body>
 </html>
