@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>User Profile - MyProduction</title>
+  <title>Profil</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
@@ -15,7 +15,7 @@
 </head>
 <body class="dashboard-page">
   <header class="app-header">
-    <h1>User Profile</h1>
+    <h1>Profil</h1>
     <button class="logout-btn" onclick="logout()">
       <i class="fas fa-sign-out-alt"></i>
     </button>
@@ -23,13 +23,13 @@
 
   <main class="app-content">
     <div class="card">
-      <h3>Account Information</h3>
+      <h3>Informasi Akun</h3>
       <div class="input-group">
         <label for="employeeId">Employee ID</label>
         <input type="number" id="employeeId" disabled />
       </div>
       <div class="input-group">
-        <label for="name">Full Name</label>
+        <label for="name">Nama Lengkap</label>
         <input type="text" id="name" disabled />
       </div>
       <div class="input-group">
@@ -37,23 +37,23 @@
         <input type="text" id="email" disabled />
       </div>
       <div class="input-group">
-        <label for="role">Role</label>
+        <label for="role">Jabatan</label>
         <input type="text" id="role" disabled />
       </div>
     </div>
 
     <div class="card">
-      <h3>Change Password</h3>
+      <h3>Ganti Kata Sandi</h3>
       <div class="input-group">
-        <input type="password" id="currentPassword" placeholder="Current Password" />
+        <input type="password" id="currentPassword" placeholder="Kata Sandi Saat Ini" />
       </div>
       <div class="input-group">
-        <input type="password" id="newPassword" placeholder="New Password" />
+        <input type="password" id="newPassword" placeholder="Kata Sandi Baru" />
       </div>
       <div class="input-group">
-        <input type="password" id="confirmPassword" placeholder="Confirm New Password" />
+        <input type="password" id="confirmPassword" placeholder="Konfirmasi Kata Sandi Baru" />
       </div>
-      <button onclick="updatePassword()">Update Password</button>
+      <button onclick="updatePassword()">Perbarui Kata Sandi</button>
       <p id="result" style="margin-top: 12px; font-weight: 600;"></p>
     </div>
   </main>
@@ -65,7 +65,7 @@
     </button>
     <button onclick="location.href='profile.html'">
       <i class="fas fa-user"></i>
-      <span>Profile</span>
+      <span>Profil</span>
     </button>
   </nav>
 

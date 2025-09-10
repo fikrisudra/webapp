@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Restock Stationery</title>
+  <title>Pengisian ATK</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
@@ -14,7 +14,7 @@
 </head>
 <body class="dashboard-page">
   <header class="app-header">
-    <h1>Restock Stationery</h1>
+    <h1>Pengisian ATK</h1>
     <button class="logout-btn" onclick="logout()">
       <i class="fas fa-sign-out-alt"></i>
     </button>
@@ -22,33 +22,33 @@
 
   <main class="app-content">
     <div class="form-card">
-  <h3>Restock Form</h3>
+  <h3>Formulir Pengisian ATK</h3>
 
   <div class="input-group horizontal-group">
-    <label for="itemCode">Item Code</label>
+    <label for="itemCode">Kode Barang</label>
     <div class="input-with-button">
-      <input type="text" id="itemCode" placeholder="Enter Item Code" oninput="fetchStock()" />
-      <button class="scan-btn" onclick="scanBarcode()" title="Scan Barcode">
+      <input type="text" id="itemCode" placeholder="Masukkan Kode Barang" oninput="fetchStock()" />
+      <button class="scan-btn" onclick="scanBarcode()" title="Pindah Kode">
         <i class="fas fa-barcode"></i>
       </button>
     </div>
   </div>
 
   <div class="input-group">
-    <label for="itemName">Item Name</label>
-    <input type="text" id="itemName" placeholder="Enter Item Name" />
+    <label for="itemName">Nama Barang</label>
+    <input type="text" id="itemName" placeholder="Masukkan Nama Barang" />
   </div>
 
   <p id="currentStock" style="font-weight: 500;"></p>
 
   <div class="input-group">
-    <label for="quantity">Quantity to Add</label>
-    <input type="number" id="quantity" placeholder="Enter Quantity" />
+    <label for="quantity">Jumlah</label>
+    <input type="number" id="quantity" placeholder="Masukkan Jumlah" />
   </div>
 
   <div class="input-group">
-    <label for="notes">Notes (optional)</label>
-    <input type="text" id="notes" placeholder="Additional Notes" />
+    <label for="notes">Catatan (optional)</label>
+    <input type="text" id="notes" placeholder="Catatan Tambahan" />
   </div>
 
   <button class="btn-primary" onclick="submitRestock()">Submit</button>
@@ -58,7 +58,7 @@
 
   <nav class="bottom-nav">
     <button onclick="location.href='dashboard.html'"><i class="fas fa-home"></i><span>Dashboard</span></button>
-    <button onclick="location.href='profile.html'"><i class="fas fa-user"></i><span>Profile</span></button>
+    <button onclick="location.href='profile.html'"><i class="fas fa-user"></i><span>Profil</span></button>
   </nav>
 
   <!-- Barcode Overlay -->
@@ -97,11 +97,11 @@
       if (item.itemname) {
         nameInput.value = item.itemname;
         nameInput.readOnly = true;
-        stockLabel.textContent = `Current Stock: ${item.stock}`;
+        stockLabel.textContent = `Stok: ${item.stock}`;
       } else {
         nameInput.value = "";
         nameInput.readOnly = false;
-        stockLabel.textContent = "🆕 New item — will be added to stock";
+        stockLabel.textContent = "🆕 Barang baru — akan ditambahkan ke stok";
       }
     }
 
@@ -136,7 +136,7 @@
 
     async function scanBarcode() {
       if (!("BarcodeDetector" in window)) {
-        alert("Barcode scanning not supported on this device.");
+        alert("Pemindaian kode batang tidak didukung pada perangkat ini.");
         return;
       }
 

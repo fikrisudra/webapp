@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Request Stationery</title>
+  <title>Pengambilan ATK</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
@@ -32,7 +32,7 @@
 </head>
 <body class="dashboard-page">
   <header class="app-header">
-    <h1>Request Stationery</h1>
+    <h1>Pengambilan ATK</h1>
     <button class="logout-btn" onclick="logout()">
       <i class="fas fa-sign-out-alt"></i>
     </button>
@@ -40,48 +40,48 @@
 
   <main class="app-content">
     <div class="form-card" id="mainForm">
-      <h3>Request Item</h3>
+      <h3>Formulir Pengambilan</h3>
       <div class="input-group">
-        <label>Item Name</label>
+        <label>Nama Barang</label>
         <select id="itemName" onchange="syncItemCode(this)">
-          <option value="">Select Item</option>
+          <option value="">Pilih Barang</option>
         </select>
       </div>
       <div class="input-group">
-        <label>Item Code</label>
+        <label>Kode Barang</label>
         <input type="text" id="itemCode" placeholder="Auto-filled" disabled />
       </div>
       <div class="input-group">
-        <label>Quantity</label>
+        <label>Jumlah</label>
         <input type="number" id="quantity" placeholder="Quantity" />
       </div>
       <div class="input-group">
-        <label>Notes</label>
+        <label>Catatan</label>
         <input type="text" id="notes" placeholder="Notes" />
       </div>
       <div class="input-group">
-        <label>Delegate</label>
+        <label>Delegasi</label>
         <input type="text" id="delegate" placeholder="Delegate" />
       </div>
       <div class="input-group">
-        <label>Photo</label>
+        <label>Foto</label>
         <input type="file" id="photo" accept="image/*" capture="environment" onchange="uploadImage(this)" />
       </div>
       <input type="hidden" id="photoURL" />
-      <button class="btn-primary" onclick="addItem()"><i class="fas fa-plus"></i> Add Item</button>
+      <button class="btn-primary" onclick="addItem()"><i class="fas fa-plus"></i> Tambah</button>
     </div>
 
     <div id="itemList"></div>
 
     <div class="form-card" id="submitCard" style="display:none;">
-      <button class="btn-primary" onclick="submitRequest()">Submit Request</button>
+      <button class="btn-primary" onclick="submitRequest()">Kirim Barang</button>
       <p id="requestMessage" style="display:none; font-weight:600;"></p>
     </div>
   </main>
 
   <nav class="bottom-nav">
     <button onclick="location.href='dashboard.html'"><i class="fas fa-home"></i><span>Dashboard</span></button>
-    <button onclick="location.href='profile.html'"><i class="fas fa-user"></i><span>Profile</span></button>
+    <button onclick="location.href='profile.html'"><i class="fas fa-user"></i><span>Profil</span></button>
   </nav>
   
   <script>
@@ -131,7 +131,7 @@
       const photoURL = document.getElementById("photoURL").value;
 
       if (!name || !code || !qty || qty <= 0) {
-        alert("❌ Please fill in all required fields.");
+        alert("❌ Isi semua kolom yang diperlukan.");
         return;
       }
 
@@ -194,7 +194,7 @@
       for (const item of requestItems) {
         const stock = stockMap[item.code];
         if (stock && item.quantity > parseInt(stock.stock)) {
-          alert(`❌ Quantity exceeds stock for ${item.code}`);
+          alert(`❌ Stok kurang ${item.code}`);
           return;
         }
 
@@ -211,7 +211,7 @@
       }
 
       const msg = document.getElementById("requestMessage");
-      msg.textContent = "✅ Request submitted successfully.";
+      msg.textContent = "✅ Berhasil.";
       msg.style.color = "green";
       msg.style.display = "block";
       setTimeout(() => msg.style.display = "none", 5000);

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Stock Stationery</title>
+  <title>Stok ATK</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
@@ -14,7 +14,7 @@
 </head>
 <body class="dashboard-page">
   <header class="app-header">
-    <h1>Stock Stationery</h1>
+    <h1>Stok ATK</h1>
     <button class="logout-btn" onclick="logout()">
       <i class="fas fa-sign-out-alt"></i>
     </button>
@@ -22,9 +22,9 @@
 
   <main class="app-content">
     <div class="form-card">
-      <h3>Search Stock</h3>
+      <h3>Pencarian</h3>
       <div class="input-group">
-        <label for="searchBox">Search by name or code</label>
+        <label for="searchBox">Cari berdasarkan nama atau kode barang</label>
         <input type="text" id="searchBox" placeholder="Type to filter..." oninput="filterStock()" />
       </div>
       <table class="user-table" id="stockTable">
@@ -43,7 +43,7 @@
 
   <nav class="bottom-nav">
     <button onclick="location.href='dashboard.html'"><i class="fas fa-home"></i><span>Dashboard</span></button>
-    <button onclick="location.href='profile.html'"><i class="fas fa-user"></i><span>Profile</span></button>
+    <button onclick="location.href='profile.html'"><i class="fas fa-user"></i><span>Profil</span></button>
   </nav>
 
   <script>
@@ -63,7 +63,7 @@
         renderTable(stockData);
       } catch (err) {
         const msg = document.getElementById("stockMessage");
-        msg.textContent = "❌ Failed to load stock data.";
+        msg.textContent = "❌ Gagal memuat data.";
         msg.style.color = "red";
         msg.style.display = "block";
       }

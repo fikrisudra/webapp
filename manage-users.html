@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Manage Users - MyProduction</title>
+  <title>Kelola Pengguna</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
@@ -15,7 +15,7 @@
 </head>
 <body class="dashboard-page">
   <header class="app-header">
-    <h1>Manage Users</h1>
+    <h1>Kelola Pengguna</h1>
     <button class="logout-btn" onclick="logout()">
       <i class="fas fa-sign-out-alt"></i>
     </button>
@@ -24,7 +24,7 @@
   <main class="app-content">
     <!-- ✅ Add User Form -->
     <div class="card">
-      <h3>Add New User</h3>
+      <h3>Tambah Pengguna Baru</h3>
       <div class="input-group"><input type="number" id="newEmployeeId" placeholder="Employee ID" /></div>
       <div class="input-group"><input type="text" id="newFullName" placeholder="Full Name" /></div>
       <div class="input-group"><input type="email" id="newEmail" placeholder="Email" /></div>
@@ -36,7 +36,7 @@
 
     <!-- ✅ Edit User Form -->
     <div class="card">
-      <h3>Edit User</h3>
+      <h3>Edit Data Pengguna</h3>
       <div class="input-group"><input type="number" id="employeeId" placeholder="Employee ID" readonly /></div>
       <div class="input-group"><input type="text" id="fullName" placeholder="Full Name" /></div>
       <div class="input-group"><input type="email" id="email" placeholder="Email" /></div>
@@ -48,7 +48,7 @@
 
     <!-- ✅ User Table + Search + Export -->
     <div class="card">
-      <h3>User List</h3>
+      <h3>Daftar Pengguna</h3>
       <div class="input-group">
         <input type="text" id="searchInput" placeholder="Search by name or email..." oninput="filterUsers()" />
       </div>
