@@ -25,24 +25,24 @@
     <!-- ✅ Add User Form -->
     <div class="card">
       <h3>Tambah Pengguna Baru</h3>
-      <div class="input-group"><input type="number" id="newEmployeeId" placeholder="Employee ID" /></div>
-      <div class="input-group"><input type="text" id="newFullName" placeholder="Full Name" /></div>
+      <div class="input-group"><input type="number" id="newEmployeeId" placeholder="NIK" /></div>
+      <div class="input-group"><input type="text" id="newFullName" placeholder="Nama Lengkap" /></div>
       <div class="input-group"><input type="email" id="newEmail" placeholder="Email" /></div>
-      <div class="input-group"><input type="text" id="newRole" placeholder="Role (Admin/User)" /></div>
-      <div class="input-group"><input type="text" id="newPassword" placeholder="Password" /></div>
-      <button onclick="addUser()">Add</button>
+      <div class="input-group"><input type="text" id="newRole" placeholder="Jabatan" /></div>
+      <div class="input-group"><input type="text" id="newPassword" placeholder="Kata Sandi" /></div>
+      <button onclick="addUser()">Tambah</button>
       <p id="addResult" style="margin-top: 12px; font-weight: 600;"></p>
     </div>
 
     <!-- ✅ Edit User Form -->
     <div class="card">
       <h3>Edit Data Pengguna</h3>
-      <div class="input-group"><input type="number" id="employeeId" placeholder="Employee ID" readonly /></div>
-      <div class="input-group"><input type="text" id="fullName" placeholder="Full Name" /></div>
+      <div class="input-group"><input type="number" id="employeeId" placeholder="NIK" readonly /></div>
+      <div class="input-group"><input type="text" id="fullName" placeholder="Nama Lengkap" /></div>
       <div class="input-group"><input type="email" id="email" placeholder="Email" /></div>
-      <div class="input-group"><input type="text" id="role" placeholder="Role (Admin/User)" /></div>
-      <div class="input-group"><input type="text" id="password" placeholder="New Password (optional)" /></div>
-      <button onclick="saveUser()">Save Changes</button>
+      <div class="input-group"><input type="text" id="role" placeholder="Jabatan" /></div>
+      <div class="input-group"><input type="text" id="password" placeholder="Kata Sandi Baru (opsional)" /></div>
+      <button onclick="saveUser()">Simpan Perubahan</button>
       <p id="formResult" style="margin-top: 12px; font-weight: 600;"></p>
     </div>
 
@@ -50,7 +50,7 @@
     <div class="card">
       <h3>Daftar Pengguna</h3>
       <div class="input-group">
-        <input type="text" id="searchInput" placeholder="Search by name or email..." oninput="filterUsers()" />
+        <input type="text" id="searchInput" placeholder="Cari berdasarkan NIK atau Nama" oninput="filterUsers()" />
       </div>
       <div class="input-group">
         <button onclick="exportCSV()">Export CSV</button>
