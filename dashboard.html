@@ -23,19 +23,19 @@
 
   <main class="app-content">
     <div class="card-grid">
-      <!-- ✅ Renamed from "Pengambilan ATK" -->
-      <a href="stationery-request.html" class="card card-menu">
+      <!-- ✅ Visible to all roles -->
+      <a href="request-stationery.html" class="card card-menu">
         <i class="fas fa-pencil-alt"></i>
         <span>Request Stationery</span>
       </a>
 
-      <!-- ✅ New Restock ATK card -->
-      <a href="stationery-restock.html" class="card card-menu">
+      <!-- ✅ Admin-only: Restock Stationery -->
+      <a href="restock-stationery.html" class="card card-menu" id="restockCard" style="display: none;">
         <i class="fas fa-boxes"></i>
         <span>Restock Stationery</span>
       </a>
 
-      <!-- ✅ Admin-only card -->
+      <!-- ✅ Admin-only: Manage Users -->
       <a href="manage-users.html" class="card card-menu" id="manageUsersCard" style="display: none;">
         <i class="fas fa-users-cog"></i>
         <span>Manage Users</span>
@@ -63,6 +63,7 @@
     const role = localStorage.getItem("role");
     if (role === "Admin") {
       document.getElementById("manageUsersCard").style.display = "flex";
+      document.getElementById("restockCard").style.display = "flex";
     }
 
     // ✅ PWA Service Worker & Install Prompt

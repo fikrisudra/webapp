@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Restock Stationery - MyProduction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ✅ Meta untuk PWA dan theme -->
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest" href="manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body class="dashboard-page">
+  <header class="app-header">
+    <h1>Restock ATK</h1>
+    <button class="logout-btn" onclick="logout()">
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
+  </header>
+
+  <main class="app-content">
+    <!-- ✅ Barcode Scanner -->
+    <div class="card">
+      <h3>Scan Barcode</h3>
+      <div id="scanner" style="width:100%; max-width:400px; margin:auto;"></div>
+      <p id="scanResult">Waiting for scan...</p>
+    </div>
+
+    <!-- ✅ Restock Form -->
+    <div class="card">
+      <h3>Restock Form</h3>
+      <div class="input-group"><input type="text" id="itemCode" placeholder="Item Code" readonly /></div>
+      <div class="input-group"><input type="text" id="itemName" placeholder="Item Name" readonly /></div>
+      <div class="input-group"><input type="number" id="quantity" placeholder="Restock Quantity" /></div>
+      <div class="input-group"><input type="text" id="notes" placeholder="Notes (optional)" /></div>
+      <button onclick="submitRestock()">Submit</button>
+      <p id="restockResult" style="margin-top: 12px; font-weight: 600;"></p>
+    </div>
+  </main>
+
+  <!-- ✅ Bottom Navigation -->
+  <nav class="bottom-nav">
+    <button onclick="location.href='dashboard.html'">
+      <i class="fas fa-home"></i>
+      <span>Dashboard</span>
+    </button>
+    <button onclick="location.href='profile.html'">
+      <i class="fas fa-user"></i>
+      <span>Profile</span>
+    </button>
+  </nav>
+
+  <script>
+    const role = localStorage.getItem("role");
+    if (role !== "Admin") {
+      alert("❌ Access denied. This page is for Admin only.");
+      window.location.href = "dashboard.html";
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    // ✅ Barcode Scanner Setup
+    const scanner = new Html5Qrcode("scanner");
+    scanner.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: 250 },
+      (decodedText) => {
+        document.getElementById("scanResult").textContent = decodedText;
+        document.getElementById("itemCode").value = decodedText;
+        fetchItemDetails(decodedText);
+        scanner.stop(); // Optional: stop after first scan
+      },
+      (errorMessage) => {
+        console.warn("Scan error:", errorMessage);
+      }
+    );
+
+    // ✅ Fetch item details from backend
+    async function fetchItemDetails(code) {
+      const res = await fetch(`https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=getItem&code=${code}`);
+      const item = await res.json();
+      document.getElementById("itemName").value = item.name || "Unknown Item";
+    }
+
+    // ✅ Submit restock data
+    async function submitRestock() {
+      const payload = {
+        action: "restockItem",
+        code: document.getElementById("itemCode").value,
+        quantity: document.getElementById("quantity").value,
+        notes: document.getElementById("notes").value
+      };
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "text/plain;charset=utf-8" }
+      });
+      const result = await res.json();
+      document.getElementById("restockResult").textContent = result.message;
+    }
+
+    // ✅ PWA Service Worker & Install Prompt
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").then(() =>
+        console.log("Service Worker Registered")
+      );
+    }
+
+    let deferredPrompt;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log("Install prompt captured");
+    });
+  </script>
+</body>
+</html>
