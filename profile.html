@@ -78,7 +78,7 @@
     const employeeId = localStorage.getItem("username");
 
     async function loadProfile() {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbzzf-Imc7A8Pd_HSNjAv-Hc0dpGrpCZpDsPRfbwz93VeooDdrLTGHoDGHuHl4Z6Z9Qwbg/exec?employeeId=" + employeeId);
+      const res = await fetch("https://script.google.com/macros/s/AKfycbwI7__sas8yt9WNBFpz_qvdqU0JqOh93qovhv7O2isD3dVgW_ZbPqX_Qv2KSh8BHbc8Tw/exec?employeeId=" + employeeId);
       const data = await res.json();
 
       document.getElementById("employeeId").value = employeeId;
