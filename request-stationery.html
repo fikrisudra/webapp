@@ -10,6 +10,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body class="dashboard-page">
   <header class="app-header">
@@ -20,10 +21,13 @@
   </header>
 
   <main class="app-content">
-    <form id="requestForm"></form>
-    <button onclick="addItem()">Add Item</button>
-    <button onclick="submitRequest()">Submit Request</button>
-    <p id="requestMessage" style="display:none; font-weight:600;"></p>
+    <div id="requestForm"></div>
+
+    <div class="form-card">
+      <button class="btn-primary" onclick="addItem()">Add Item</button>
+      <button class="btn-primary" onclick="submitRequest()">Submit Request</button>
+      <p id="requestMessage" style="display:none; font-weight:600;"></p>
+    </div>
   </main>
 
   <nav class="bottom-nav">
@@ -48,14 +52,15 @@
 
     function addItem() {
       const container = document.createElement("div");
-      container.className = "card item-block";
+      container.className = "form-card item-block";
       container.innerHTML = `
-        <div class="input-group"><input type="text" placeholder="Item Code" oninput="syncItemName(this)" /></div>
-        <div class="input-group"><input type="text" placeholder="Item Name" /></div>
-        <div class="input-group"><input type="number" placeholder="Quantity" /></div>
-        <div class="input-group"><input type="text" placeholder="Notes" /></div>
-        <div class="input-group"><input type="text" placeholder="Delegate" /></div>
-        <div class="input-group"><input type="file" accept="image/*" capture="environment" onchange="uploadImage(this)" /></div>
+        <h3>Item Request</h3>
+        <div class="input-group"><label>Item Code</label><input type="text" placeholder="Item Code" oninput="syncItemName(this)" /></div>
+        <div class="input-group"><label>Item Name</label><input type="text" placeholder="Item Name" /></div>
+        <div class="input-group"><label>Quantity</label><input type="number" placeholder="Quantity" /></div>
+        <div class="input-group"><label>Notes</label><input type="text" placeholder="Notes" /></div>
+        <div class="input-group"><label>Delegate</label><input type="text" placeholder="Delegate" /></div>
+        <div class="input-group"><label>Photo</label><input type="file" accept="image/*" capture="environment" onchange="uploadImage(this)" /></div>
         <input type="hidden" class="photoURL" />
       `;
       document.getElementById("requestForm").appendChild(container);

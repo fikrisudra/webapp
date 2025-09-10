@@ -10,9 +10,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
-  <style>
-    #restockMessage { display: none; font-weight: 600; margin-top: 12px; }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body class="dashboard-page">
   <header class="app-header">
@@ -23,22 +21,27 @@
   </header>
 
   <main class="app-content">
-    <div class="card">
+    <div class="form-card">
+      <h3>Restock Form</h3>
       <div class="input-group">
-        <input type="text" id="itemCode" placeholder="Item Code" oninput="fetchStock()" />
+        <label for="itemCode">Item Code</label>
+        <input type="text" id="itemCode" placeholder="Enter Item Code" oninput="fetchStock()" />
       </div>
       <div class="input-group">
-        <input type="text" id="itemName" placeholder="Item Name" />
+        <label for="itemName">Item Name</label>
+        <input type="text" id="itemName" placeholder="Enter Item Name" />
       </div>
       <p id="currentStock" style="font-weight: 500;"></p>
       <div class="input-group">
-        <input type="number" id="quantity" placeholder="Quantity to Add" />
+        <label for="quantity">Quantity to Add</label>
+        <input type="number" id="quantity" placeholder="Enter Quantity" />
       </div>
       <div class="input-group">
-        <input type="text" id="notes" placeholder="Notes (optional)" />
+        <label for="notes">Notes (optional)</label>
+        <input type="text" id="notes" placeholder="Additional Notes" />
       </div>
-      <button onclick="submitRestock()">Submit</button>
-      <p id="restockMessage"></p>
+      <button class="btn-primary" onclick="submitRestock()">Submit</button>
+      <p id="restockMessage" style="display:none; font-weight:600;"></p>
     </div>
   </main>
 

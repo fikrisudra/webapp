@@ -10,6 +10,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body class="dashboard-page">
   <header class="app-header">
@@ -20,10 +21,20 @@
   </header>
 
   <main class="app-content">
-    <div class="card">
-      <input type="text" id="searchBox" placeholder="Search by name or code..." oninput="filterStock()" />
-      <table id="stockTable">
-        <thead><tr><th>Item Code</th><th>Item Name</th><th>Stock</th></tr></thead>
+    <div class="form-card">
+      <h3>Search Stock</h3>
+      <div class="input-group">
+        <label for="searchBox">Search by name or code</label>
+        <input type="text" id="searchBox" placeholder="Type to filter..." oninput="filterStock()" />
+      </div>
+      <table class="user-table" id="stockTable">
+        <thead>
+          <tr>
+            <th>Item Code</th>
+            <th>Item Name</th>
+            <th>Stock</th>
+          </tr>
+        </thead>
         <tbody></tbody>
       </table>
     </div>
