@@ -477,7 +477,16 @@ body.login-page {
   font-size: 1.5rem;
   color: #555;
   cursor: pointer;
+  padding-bottom: 8px; /* ✅ Tambahan jarak bawah */
 }
+
 .close-btn:hover {
   color: #dc3545;
+}
+
+.overlay-card video {
+  width: 100%;
+  height: auto;
+  margin-top: 24px; /* ✅ Tambahan jarak dari tombol */
+  border-radius: 4px;
 }
