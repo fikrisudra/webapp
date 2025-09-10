@@ -11,6 +11,33 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .overlay-card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      max-width: 90%;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .overlay-card video {
+      width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body class="dashboard-page">
   <header class="app-header">
@@ -28,10 +55,10 @@
         <input type="text" id="itemCode" placeholder="Enter Item Code" oninput="fetchStock()" />
       </div>
       <div class="input-group">
-  <button class="btn-primary" onclick="scanBarcode()">
-    <i class="fas fa-barcode"></i> Scan Barcode
-  </button>
-</div>
+        <button class="btn-primary" onclick="scanBarcode()">
+          <i class="fas fa-barcode"></i> Scan Barcode
+        </button>
+      </div>
       <div class="input-group">
         <label for="itemName">Item Name</label>
         <input type="text" id="itemName" placeholder="Enter Item Name" />
@@ -55,115 +82,122 @@
     <button onclick="location.href='profile.html'"><i class="fas fa-user"></i><span>Profile</span></button>
   </nav>
 
+  <!-- Barcode Overlay -->
+  <div id="barcodeOverlay" class="overlay" style="display:none;">
+    <div class="overlay-card">
+      <h3>Scan Barcode</h3>
+      <video id="barcodeVideo" playsinline></video>
+      <button class="btn-secondary" onclick="closeBarcode()">❌ Close</button>
+    </div>
+  </div>
+
   <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbx8YXxWF_-w8ZmnRS9GB1MSZwywihRmcb9zWwMyfyZrbHD2--KKer5jMo_rUtdRwxCZLQ/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbx8YXxWF_-w8ZmnRS9GB1MSZwywihRmcb9zWwMyfyZrbHD2--KKer5jMo_rUtdRwxCZLQ/exec";
+    let barcodeStream;
+    let barcodeLoop;
 
-  function logout() {
-    localStorage.clear();
-    window.location.href = "index.html";
-  }
-
-  async function fetchStock() {
-    const code = document.getElementById("itemCode").value.trim();
-    if (!code) return;
-
-    const res = await fetch(`${scriptURL}?action=getItem&code=${code}`);
-    const item = await res.json();
-
-    const nameInput = document.getElementById("itemName");
-    const stockLabel = document.getElementById("currentStock");
-
-    if (item.itemname) {
-      nameInput.value = item.itemname;
-      nameInput.readOnly = true;
-      stockLabel.textContent = `Current Stock: ${item.stock}`;
-    } else {
-      nameInput.value = "";
-      nameInput.readOnly = false;
-      stockLabel.textContent = "🆕 New item — will be added to stock";
-    }
-  }
-
-  async function submitRestock() {
-    const payload = {
-      action: "restockItem",
-      code: document.getElementById("itemCode").value.trim(),
-      name: document.getElementById("itemName").value.trim(),
-      quantity: document.getElementById("quantity").value.trim(),
-      notes: document.getElementById("notes").value.trim()
-    };
-
-    const res = await fetch(scriptURL, {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: { "Content-Type": "text/plain;charset=utf-8" }
-    });
-
-    const data = await res.json();
-    const msg = document.getElementById("restockMessage");
-    msg.textContent = data.message;
-    msg.style.color = data.status === "success" ? "green" : "red";
-    msg.style.display = "block";
-
-    setTimeout(() => msg.style.display = "none", 5000);
-    document.getElementById("itemCode").value = "";
-    document.getElementById("itemName").value = "";
-    document.getElementById("quantity").value = "";
-    document.getElementById("notes").value = "";
-    document.getElementById("currentStock").textContent = "";
-  }
-
-  async function scanBarcode() {
-    if (!("BarcodeDetector" in window)) {
-      alert("Barcode scanning not supported on this device.");
-      return;
+    function logout() {
+      localStorage.clear();
+      window.location.href = "index.html";
     }
 
-    const video = document.createElement("video");
-    video.setAttribute("playsinline", true);
-    video.style.position = "fixed";
-    video.style.top = "0";
-    video.style.left = "0";
-    video.style.width = "100%";
-    video.style.height = "100%";
-    video.style.zIndex = "9999";
-    document.body.appendChild(video);
+    async function fetchStock() {
+      const code = document.getElementById("itemCode").value.trim();
+      if (!code) return;
 
-    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
-    video.srcObject = stream;
-    await video.play();
+      const res = await fetch(`${scriptURL}?action=getItem&code=${code}`);
+      const item = await res.json();
 
-    const detector = new BarcodeDetector({ formats: ["code_128", "ean_13", "qr_code"] });
+      const nameInput = document.getElementById("itemName");
+      const stockLabel = document.getElementById("currentStock");
 
-    const scanLoop = setInterval(async () => {
-      const barcodes = await detector.detect(video);
-      if (barcodes.length > 0) {
-        const code = barcodes[0].rawValue;
-        document.getElementById("itemCode").value = code;
-        fetchStock();
-        cleanup();
+      if (item.itemname) {
+        nameInput.value = item.itemname;
+        nameInput.readOnly = true;
+        stockLabel.textContent = `Current Stock: ${item.stock}`;
+      } else {
+        nameInput.value = "";
+        nameInput.readOnly = false;
+        stockLabel.textContent = "🆕 New item — will be added to stock";
       }
-    }, 500);
-
-    function cleanup() {
-      clearInterval(scanLoop);
-      stream.getTracks().forEach(track => track.stop());
-      video.remove();
     }
-  }
 
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").then(() =>
-      console.log("Service Worker Registered")
-    );
-  }
+    async function submitRestock() {
+      const payload = {
+        action: "restockItem",
+        code: document.getElementById("itemCode").value.trim(),
+        name: document.getElementById("itemName").value.trim(),
+        quantity: document.getElementById("quantity").value.trim(),
+        notes: document.getElementById("notes").value.trim()
+      };
 
-  let deferredPrompt;
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    console.log("Install prompt captured");
-  });
-</script>
+      const res = await fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "text/plain;charset=utf-8" }
+      });
+
+      const data = await res.json();
+      const msg = document.getElementById("restockMessage");
+      msg.textContent = data.message;
+      msg.style.color = data.status === "success" ? "green" : "red";
+      msg.style.display = "block";
+
+      setTimeout(() => msg.style.display = "none", 5000);
+      document.getElementById("itemCode").value = "";
+      document.getElementById("itemName").value = "";
+      document.getElementById("quantity").value = "";
+      document.getElementById("notes").value = "";
+      document.getElementById("currentStock").textContent = "";
+    }
+
+    async function scanBarcode() {
+      if (!("BarcodeDetector" in window)) {
+        alert("Barcode scanning not supported on this device.");
+        return;
+      }
+
+      const overlay = document.getElementById("barcodeOverlay");
+      const video = document.getElementById("barcodeVideo");
+      overlay.style.display = "flex";
+
+      barcodeStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+      video.srcObject = barcodeStream;
+      await video.play();
+
+      const detector = new BarcodeDetector({ formats: ["code_128", "ean_13", "qr_code"] });
+
+      barcodeLoop = setInterval(async () => {
+        const barcodes = await detector.detect(video);
+        if (barcodes.length > 0) {
+          const code = barcodes[0].rawValue;
+          document.getElementById("itemCode").value = code;
+          fetchStock();
+          closeBarcode();
+        }
+      }, 500);
+    }
+
+    function closeBarcode() {
+      clearInterval(barcodeLoop);
+      if (barcodeStream) {
+        barcodeStream.getTracks().forEach(track => track.stop());
+      }
+      document.getElementById("barcodeOverlay").style.display = "none";
+    }
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").then(() =>
+        console.log("Service Worker Registered")
+      );
+    }
+
+    let deferredPrompt;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log("Install prompt captured");
+    });
+  </script>
 </body>
 </html>
