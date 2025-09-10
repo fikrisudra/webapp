@@ -474,19 +474,23 @@ body.login-page {
   right: 12px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #555;
   cursor: pointer;
-  padding-bottom: 8px; /* ✅ Tambahan jarak bawah */
+  padding-bottom: 8px;
 }
 
 .close-btn:hover {
   color: #dc3545;
 }
 
+.close-btn i {
+  pointer-events: none;
+}
+
 .overlay-card video {
   width: 100%;
   height: auto;
-  margin-top: 24px; /* ✅ Tambahan jarak dari tombol */
+  margin-top: 40px; /* ✅ Tambahan jarak dari tombol */
   border-radius: 4px;
 }
