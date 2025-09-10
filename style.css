@@ -513,7 +513,7 @@ body.login-page {
 .overlay-card video {
   width: 100%;
   height: auto;
-  margin-top: 2rem; /* ✅ Jarak dari tombol close */
+  margin-top: 1.5rem; /* ✅ Jarak dari tombol close */
   border-radius: 4px;
 }
 
@@ -525,7 +525,7 @@ body.login-page {
   height: 2px;
   background: rgba(0, 123, 255, 0.8); /* Biru transparan */
   animation: scanMove 2s linear infinite;
-  z-index: 2;
+  z-index: 10000;
 }
 
 @keyframes scanMove {
