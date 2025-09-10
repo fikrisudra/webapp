@@ -483,8 +483,8 @@ body.login-page {
 .overlay-card {
   position: relative;
   background: #fff;
-  padding: 2rem 1.5rem 2rem; /* ✅ Jarak atas, kanan-kiri, dan bawah seimbang */
-  border-radius: 8px;
+  padding: 2rem 2rem 2rem; /* ✅ Jarak atas, kanan-kiri, dan bawah seimbang */
+  border-radius: 30px;
   max-width: 90%;
   width: 400px;
   text-align: center;
@@ -494,7 +494,7 @@ body.login-page {
 .close-btn {
   position: absolute;
   top: 12px;
-  right: 12px;
+  right: 2rem;
   background: none;
   border: none;
   font-size: 1.4rem;
@@ -514,6 +514,6 @@ body.login-page {
 .overlay-card video {
   width: 100%;
   height: auto;
-  margin-top: 2.5rem; /* ✅ Tambahkan jarak dari tombol close */
-  border-radius: 4px;
+  margin-top: 2rem; /* ✅ Tambahkan jarak dari tombol close */
+  border-radius: 20px;
 }
