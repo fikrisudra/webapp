@@ -37,6 +37,7 @@
         </thead>
         <tbody></tbody>
       </table>
+      <p id="stockMessage" style="display:none; font-weight:600;"></p>
     </div>
   </main>
 
@@ -55,9 +56,17 @@
     }
 
     async function loadStock() {
-      const res = await fetch(`${scriptURL}?action=getStock`);
-      stockData = await res.json();
-      renderTable(stockData);
+      try {
+        const res = await fetch(`${scriptURL}?action=getStock`);
+        stockData = await res.json();
+        if (!Array.isArray(stockData)) throw new Error("Invalid data format");
+        renderTable(stockData);
+      } catch (err) {
+        const msg = document.getElementById("stockMessage");
+        msg.textContent = "❌ Failed to load stock data.";
+        msg.style.color = "red";
+        msg.style.display = "block";
+      }
     }
 
     function renderTable(data) {
