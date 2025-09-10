@@ -456,3 +456,35 @@ body.login-page {
   margin-bottom: 1rem;
   border-radius: 4px;
 }
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: #333;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 10000;
+}
+.close-btn:hover {
+  transform: scale(1.2);
+  color: #e74c3c;
+}
+.overlay-card {
+  position: relative;
+  background: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  max-width: 90%;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+.overlay-card h3 {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  color: #333;
+}

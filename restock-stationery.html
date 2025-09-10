@@ -84,12 +84,12 @@
 
   <!-- Barcode Overlay -->
   <div id="barcodeOverlay" class="overlay" style="display:none;">
-    <div class="overlay-card">
-      <h3>Scan Barcode</h3>
-      <video id="barcodeVideo" playsinline></video>
-      <button class="btn-secondary" onclick="closeBarcode()">❌ Close</button>
-    </div>
+  <div class="overlay-card">
+    <button class="close-btn" onclick="closeBarcode()">×</button>
+    <h3><i class="fas fa-barcode"></i> Scan Your Item</h3>
+    <video id="barcodeVideo" playsinline></video>
   </div>
+</div>
 
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbx8YXxWF_-w8ZmnRS9GB1MSZwywihRmcb9zWwMyfyZrbHD2--KKer5jMo_rUtdRwxCZLQ/exec";
