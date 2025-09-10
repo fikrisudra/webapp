@@ -49,32 +49,38 @@
 
   <main class="app-content">
     <div class="form-card">
-      <h3>Restock Form</h3>
-      <div class="input-group horizontal-group">
-  <label for="itemCode">Item Code</label>
-  <div class="input-with-button">
-    <input type="text" id="itemCode" placeholder="Enter Item Code" oninput="fetchStock()" />
-    <button class="scan-btn" onclick="scanBarcode()" title="Scan Barcode">
-      <i class="fas fa-barcode"></i>
-    </button>
-  </div>
-</div>
-      <div class="input-group">
-        <label for="itemName">Item Name</label>
-        <input type="text" id="itemName" placeholder="Enter Item Name" />
-      </div>
-      <p id="currentStock" style="font-weight: 500;"></p>
-      <div class="input-group">
-        <label for="quantity">Quantity to Add</label>
-        <input type="number" id="quantity" placeholder="Enter Quantity" />
-      </div>
-      <div class="input-group">
-        <label for="notes">Notes (optional)</label>
-        <input type="text" id="notes" placeholder="Additional Notes" />
-      </div>
-      <button class="btn-primary" onclick="submitRestock()">Submit</button>
-      <p id="restockMessage" style="display:none; font-weight:600;"></p>
+  <h3>Restock Form</h3>
+
+  <div class="input-group horizontal-group">
+    <label for="itemCode">Item Code</label>
+    <div class="input-with-button">
+      <input type="text" id="itemCode" placeholder="Enter Item Code" oninput="fetchStock()" />
+      <button class="scan-btn" onclick="scanBarcode()" title="Scan Barcode">
+        <i class="fas fa-barcode"></i>
+      </button>
     </div>
+  </div>
+
+  <div class="input-group">
+    <label for="itemName">Item Name</label>
+    <input type="text" id="itemName" placeholder="Enter Item Name" />
+  </div>
+
+  <p id="currentStock" style="font-weight: 500;"></p>
+
+  <div class="input-group">
+    <label for="quantity">Quantity to Add</label>
+    <input type="number" id="quantity" placeholder="Enter Quantity" />
+  </div>
+
+  <div class="input-group">
+    <label for="notes">Notes (optional)</label>
+    <input type="text" id="notes" placeholder="Additional Notes" />
+  </div>
+
+  <button class="btn-primary" onclick="submitRestock()">Submit</button>
+  <p id="restockMessage" style="display:none; font-weight:600;"></p>
+</div>
   </main>
 
   <nav class="bottom-nav">
