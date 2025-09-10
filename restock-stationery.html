@@ -50,15 +50,15 @@
   <main class="app-content">
     <div class="form-card">
       <h3>Restock Form</h3>
-      <div class="input-group">
-        <label for="itemCode">Item Code</label>
-        <input type="text" id="itemCode" placeholder="Enter Item Code" oninput="fetchStock()" />
-      </div>
-      <div class="input-group">
-        <button class="btn-primary" onclick="scanBarcode()">
-          <i class="fas fa-barcode"></i> Scan Barcode
-        </button>
-      </div>
+      <div class="input-group horizontal-group">
+  <label for="itemCode">Item Code</label>
+  <div class="input-with-button">
+    <input type="text" id="itemCode" placeholder="Enter Item Code" oninput="fetchStock()" />
+    <button class="scan-btn" onclick="scanBarcode()" title="Scan Barcode">
+      <i class="fas fa-barcode"></i>
+    </button>
+  </div>
+</div>
       <div class="input-group">
         <label for="itemName">Item Name</label>
         <input type="text" id="itemName" placeholder="Enter Item Name" />

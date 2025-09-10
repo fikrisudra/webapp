@@ -488,3 +488,33 @@ body.login-page {
   font-size: 1.2rem;
   color: #333;
 }
+
+.horizontal-group .input-with-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.input-with-button input {
+  flex: 1;
+  padding-right: 2.5rem;
+}
+
+.scan-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.scan-btn:hover {
+  background-color: #0056b3;
+}
