@@ -83,7 +83,7 @@
     <button onclick="location.href='dashboard.html'"><i class="fas fa-home"></i><span>Dashboard</span></button>
     <button onclick="location.href='profile.html'"><i class="fas fa-user"></i><span>Profile</span></button>
   </nav>
-
+  
   <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbzohxtlvsJOLDDBx8W2_ltR-VQJvMbeDNUfvgFDoO8MpeyHVaNyWpAbVNUl4PtFjqw-pQ/exec";
     let stockMap = {};
@@ -96,20 +96,24 @@
     }
 
     async function loadStock() {
-      const res = await fetch(`${scriptURL}?action=getStock`);
-      const stock = await res.json();
-      stock.forEach(item => {
-        stockMap[item.itemcode] = item;
-        stockList.push(item);
-      });
+      try {
+        const res = await fetch(`${scriptURL}?action=getStock`);
+        const stock = await res.json();
+        stock.forEach(item => {
+          stockMap[item.itemcode] = item;
+          stockList.push(item);
+        });
 
-      const select = document.getElementById("itemName");
-      stockList.forEach(item => {
-        const option = document.createElement("option");
-        option.value = item.itemname;
-        option.textContent = item.itemname;
-        select.appendChild(option);
-      });
+        const select = document.getElementById("itemName");
+        stockList.forEach(item => {
+          const option = document.createElement("option");
+          option.value = item.itemname;
+          option.textContent = item.itemname;
+          select.appendChild(option);
+        });
+      } catch (err) {
+        console.error("Failed to load stock:", err);
+      }
     }
 
     function syncItemCode(select) {
@@ -172,7 +176,7 @@
       document.getElementById("photo").value = "";
       document.getElementById("photoURL").value = "";
     }
-
+    
     async function uploadImage(fileInput) {
       const file = fileInput.files[0];
       if (!file) return;
@@ -207,8 +211,6 @@
       }
 
       const msg = document.getElementById("requestMessage");
-     [43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/muminy/mukemmelis/tree/40bac68ccc86a046a2cb71bcb94db9765cae2e67/pages%2F_document.js?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "1")
-     const msg = document.getElementById("requestMessage");
       msg.textContent = "✅ Request submitted successfully.";
       msg.style.color = "green";
       msg.style.display = "block";
@@ -217,10 +219,10 @@
       renderItemList();
     }
 
-    // PWA Install Prompt
+    // PWA setup
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").then(() =>
-        console.log("Service Worker Registered")
+        console.log("✅ Service Worker Registered")
       );
     }
 
@@ -228,11 +230,11 @@
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      console.log("Install prompt captured");
+      console.log("📦 Install prompt captured");
     });
 
     // Load stock on page load
-    loadStock();
+    document.addEventListener("DOMContentLoaded", loadStock);
   </script>
 </body>
 </html>
