@@ -470,32 +470,34 @@ body.login-page {
 
 .close-btn {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 16px;
+  right: 16px;
   background: none;
   border: none;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: #555;
   cursor: pointer;
-  padding-bottom: 8px;
-  z-index: 10000;
+  z-index: 1;
 }
 
 .close-btn:hover {
   color: #dc3545;
 }
 
-.close-btn i {
-  pointer-events: none;
-}
-
-.close-btn i {
-  pointer-events: none;
+.overlay-card {
+  position: relative;
+  background: #fff;
+  padding: 2rem 1.5rem 1.5rem;
+  border-radius: 8px;
+  max-width: 90%;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
 .overlay-card video {
   width: 100%;
   height: auto;
-  margin-top: 40px; /* ✅ Tambahan jarak dari tombol */
+  margin-top: 1.5rem;
   border-radius: 4px;
 }
