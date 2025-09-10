@@ -80,7 +80,7 @@
     let isEditing = false;
 
     async function loadUsers() {
-      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=listUsers");
+      const res = await fetch("https://script.google.com/macros/s/AKfycbwI7__sas8yt9WNBFpz_qvdqU0JqOh93qovhv7O2isD3dVgW_ZbPqX_Qv2KSh8BHbc8Tw/exec?action=listUsers");
       allUsers = await res.json();
       renderUsers(allUsers);
     }
