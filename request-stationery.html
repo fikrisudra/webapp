@@ -36,120 +36,140 @@
   </nav>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbz45qgnLqdLk6SVGbI6I_XCbTFXcNBrXCyVIbjjyYAee-CSk1NCe2RhX1ABlAGkfKRn5A/exec";
-    let stockMap = {};
+  const scriptURL = "https://script.google.com/macros/s/AKfycbz45qgnLqdLk6SVGbI6I_XCbTFXcNBrXCyVIbjjyYAee-CSk1NCe2RhX1ABlAGkfKRn5A/exec";
+  let stockMap = {};
+  let stockList = [];
 
-    function logout() {
-      localStorage.clear();
-      window.location.href = "index.html";
-    }
+  function logout() {
+    localStorage.clear();
+    window.location.href = "index.html";
+  }
 
-    async function loadStock() {
-      const res = await fetch(`${scriptURL}?action=getStock`);
-      const stock = await res.json();
-      stock.forEach(item => stockMap[item.itemcode] = item);
-    }
-
-    function addItem() {
-      const container = document.createElement("div");
-      container.className = "form-card item-block";
-      container.innerHTML = `
-        <h3>Item Request</h3>
-        <div class="input-group"><label>Item Code</label><input type="text" placeholder="Item Code" oninput="syncItemName(this)" /></div>
-        <div class="input-group"><label>Item Name</label><input type="text" placeholder="Item Name" /></div>
-        <div class="input-group"><label>Quantity</label><input type="number" placeholder="Quantity" /></div>
-        <div class="input-group"><label>Notes</label><input type="text" placeholder="Notes" /></div>
-        <div class="input-group"><label>Delegate</label><input type="text" placeholder="Delegate" /></div>
-        <div class="input-group"><label>Photo</label><input type="file" accept="image/*" capture="environment" onchange="uploadImage(this)" /></div>
-        <input type="hidden" class="photoURL" />
-      `;
-      document.getElementById("requestForm").appendChild(container);
-    }
-
-    function syncItemName(input) {
-      const code = input.value;
-      const block = input.closest(".item-block");
-      const nameInput = block.querySelectorAll("input")[1];
-      const stock = stockMap[code];
-      if (stock) {
-        nameInput.value = stock.itemname;
-        nameInput.readOnly = true;
-      } else {
-        nameInput.value = "";
-        nameInput.readOnly = false;
-      }
-    }
-
-    async function uploadImage(fileInput) {
-      const file = fileInput.files[0];
-      if (!file) return;
-      const formData = new FormData();
-      formData.append("image", file);
-      const res = await fetch("https://api.imgbb.com/1/upload?key=35d4bcf41afaa32795772ceedc8bc89a", {
-        method: "POST",
-        body: formData
-      });
-      const data = await res.json();
-      const urlInput = fileInput.closest(".item-block").querySelector(".photoURL");
-      urlInput.value = data.data.url;
-    }
-
-    async function submitRequest() {
-      const blocks = document.querySelectorAll(".item-block");
-      for (const block of blocks) {
-        const inputs = block.querySelectorAll("input");
-        const code = inputs[0].value;
-        const name = inputs[1].value;
-        const qty = parseInt(inputs[2].value);
-        const notes = inputs[3].value;
-        const delegate = inputs[4].value;
-        const photoURL = inputs[6].value;
-
-        const stock = stockMap[code];
-        if (stock && qty > parseInt(stock.stock)) {
-          alert(`❌ Quantity exceeds stock for ${code}`);
-          return;
-        }
-
-        const payload = {
-          action: "requestItem",
-          code,
-          name,
-          quantity: qty,
-          notes,
-          delegate,
-          photoURL
-        };
-
-        await fetch(scriptURL, {
-          method: "POST",
-          body: JSON.stringify(payload),
-          headers: { "Content-Type": "text/plain;charset=utf-8" }
-        });
-      }
-
-      const msg = document.getElementById("requestMessage");
-      msg.textContent = "✅ Request submitted successfully.";
-      msg.style.color = "green";
-      msg.style.display = "block";
-      setTimeout(() => msg.style.display = "none", 5000);
-      document.getElementById("requestForm").innerHTML = "";
-    }
-
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js").then(() =>
-        console.log("Service Worker Registered")
-      );
-    }
-
-    let deferredPrompt;
-    window.addEventListener("beforeinstallprompt", (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      console.log("Install prompt captured");
+  async function loadStock() {
+    const res = await fetch(`${scriptURL}?action=getStock`);
+    const stock = await res.json();
+    stock.forEach(item => {
+      stockMap[item.itemcode] = item;
+      stockList.push(item);
     });
+  }
 
-    loadStock();
-  </script>
+  function addItem() {
+    const container = document.createElement("div");
+    container.className = "form-card item-block";
+    container.innerHTML = `
+      <h3>Item Request</h3>
+      <div class="input-group">
+        <label>Item Name</label>
+        <select onchange="syncItemCode(this)">
+          <option value="">Select Item</option>
+          ${stockList.map(item => `<option value="${item.itemname}">${item.itemname}</option>`).join("")}
+        </select>
+      </div>
+      <div class="input-group">
+        <label>Item Code</label>
+        <input type="text" placeholder="Auto-filled" disabled />
+      </div>
+      <div class="input-group">
+        <label>Quantity</label>
+        <input type="number" placeholder="Quantity" />
+      </div>
+      <div class="input-group">
+        <label>Notes</label>
+        <input type="text" placeholder="Notes" />
+      </div>
+      <div class="input-group">
+        <label>Delegate</label>
+        <input type="text" placeholder="Delegate" />
+      </div>
+      <div class="input-group">
+        <label>Photo</label>
+        <input type="file" accept="image/*" capture="environment" onchange="uploadImage(this)" />
+      </div>
+      <input type="hidden" class="photoURL" />
+    `;
+    document.getElementById("requestForm").appendChild(container);
+  }
+
+  function syncItemCode(select) {
+    const itemName = select.value;
+    const block = select.closest(".item-block");
+    const codeInput = block.querySelectorAll("input")[0];
+    const matched = stockList.find(item => item.itemname === itemName);
+    codeInput.value = matched ? matched.itemcode : "";
+  }
+
+  async function uploadImage(fileInput) {
+    const file = fileInput.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("image", file);
+    const res = await fetch("https://api.imgbb.com/1/upload?key=35d4bcf41afaa32795772ceedc8bc89a", {
+      method: "POST",
+      body: formData
+    });
+    const data = await res.json();
+    const urlInput = fileInput.closest(".item-block").querySelector(".photoURL");
+    urlInput.value = data.data.url;
+  }
+
+  async function submitRequest() {
+    const blocks = document.querySelectorAll(".item-block");
+    for (const block of blocks) {
+      const inputs = block.querySelectorAll("input");
+      const selects = block.querySelectorAll("select");
+      const name = selects[0].value;
+      const code = inputs[0].value;
+      const qty = parseInt(inputs[1].value);
+      const notes = inputs[2].value;
+      const delegate = inputs[3].value;
+      const photoURL = inputs[4].value;
+
+      const stock = stockMap[code];
+      if (stock && qty > parseInt(stock.stock)) {
+        alert(`❌ Quantity exceeds stock for ${code}`);
+        return;
+      }
+
+      const payload = {
+        action: "requestItem",
+        code,
+        name,
+        quantity: qty,
+        notes,
+        delegate,
+        photoURL
+      };
+
+      await fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "text/plain;charset=utf-8" }
+      });
+    }
+
+    const msg = document.getElementById("requestMessage");
+    msg.textContent = "✅ Request submitted successfully.";
+    msg.style.color = "green";
+    msg.style.display = "block";
+    setTimeout(() => msg.style.display = "none", 5000);
+    document.getElementById("requestForm").innerHTML = "";
+  }
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").then(() =>
+      console.log("Service Worker Registered")
+    );
+  }
+
+  let deferredPrompt;
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    console.log("Install prompt captured");
+  });
+
+  loadStock();
+</script>
 </body>
 </html>
