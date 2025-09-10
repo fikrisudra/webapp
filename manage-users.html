@@ -100,23 +100,27 @@
     }
 
     function renderUsers(users) {
-      const tbody = document.querySelector("#userTable tbody");
-      tbody.innerHTML = "";
-      users.forEach(user => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${user.employeeId}</td>
-          <td>${user.fullName}</td>
-          <td>${user.email}</td>
-          <td>${user.role}</td>
-          <td>
-            <button onclick='editUser(${user.employeeId})'>Edit</button>
-            <button onclick='deleteUser(${user.employeeId})'>Delete</button>
-          </td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
+  const tbody = document.querySelector("#userTable tbody");
+  tbody.innerHTML = "";
+  users.forEach(user => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${user.employeeId}</td>
+      <td>${user.fullName}</td>
+      <td>${user.email}</td>
+      <td>${user.role}</td>
+      <td>
+        <button onclick='editUser(${user.employeeId})' title="Edit">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button onclick='deleteUser(${user.employeeId})' title="Delete">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+}
 
     function filterUsers() {
       const keyword = document.getElementById("searchInput").value.toLowerCase();
