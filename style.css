@@ -468,6 +468,7 @@ body.login-page {
   }
 }
 
+/* === OVERLAY === */
 .overlay {
   position: fixed;
   top: 0; left: 0;
@@ -476,13 +477,14 @@ body.login-page {
   z-index: 9999;
   display: grid;
   place-items: center; /* ✅ Pusatkan card secara presisi */
-  padding: 16px; /* ✅ Jarak luar agar tidak mentok */
+  padding: 16px;
 }
 
+/* === CARD === */
 .overlay-card {
   position: relative;
   background: #fff;
-  padding: 2rem 1.5rem; /* ✅ Atas: 2rem, Kanan-Kiri-Bawah: 1.5rem */
+  padding: 2rem 1.5rem;
   border-radius: 8px;
   max-width: 90%;
   width: 400px;
@@ -490,46 +492,57 @@ body.login-page {
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
 
+/* === CLOSE BUTTON === */
 .close-btn {
   position: absolute;
   top: 12px;
-  right: 15px;
+  right: 12px;
   background: none;
   border: none;
   font-size: 1.4rem;
   color: #555;
   cursor: pointer;
-  z-index: 1;
+  z-index: 2;
 }
-
 .close-btn:hover {
   color: #dc3545;
 }
-
 .close-btn i {
   pointer-events: none;
 }
 
-.overlay-card video {
+/* === VIDEO WRAPPER === */
+.video-wrapper {
+  position: relative;
   width: 100%;
   height: auto;
-  margin-top: 1.5rem; /* ✅ Jarak dari tombol close */
+  margin-top: 2rem;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* === VIDEO === */
+.video-wrapper video {
+  width: 100%;
+  height: auto;
+  display: block;
   border-radius: 4px;
 }
 
+/* === SCAN LINE === */
 .scan-line {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 2px;
-  background: rgba(0, 123, 255, 0.8); /* Biru transparan */
+  background: rgba(0, 123, 255, 0.8);
   animation: scanMove 2s linear infinite;
-  z-index: 10000;
+  z-index: 1;
 }
 
 @keyframes scanMove {
   0% { top: 0; }
-  50% { top: 90%; }
+  50% { top: calc(100% - 2px); }
   100% { top: 0; }
 }
