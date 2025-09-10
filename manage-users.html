@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Manage Users - MyProduction</title>
@@ -22,21 +22,35 @@
   </header>
 
   <main class="app-content">
+    <!-- ✅ Add User Form -->
     <div class="card">
-      <h3>Tambah / Edit User</h3>
-      <div class="input-group"><input type="number" id="employeeId" placeholder="Employee ID" /></div>
+      <h3>Add New User</h3>
+      <div class="input-group"><input type="number" id="newEmployeeId" placeholder="Employee ID" /></div>
+      <div class="input-group"><input type="text" id="newFullName" placeholder="Full Name" /></div>
+      <div class="input-group"><input type="email" id="newEmail" placeholder="Email" /></div>
+      <div class="input-group"><input type="text" id="newRole" placeholder="Role (Admin/User)" /></div>
+      <div class="input-group"><input type="text" id="newPassword" placeholder="Password" /></div>
+      <button onclick="addUser()">Add</button>
+      <p id="addResult" style="margin-top: 12px; font-weight: 600;"></p>
+    </div>
+
+    <!-- ✅ Edit User Form -->
+    <div class="card">
+      <h3>Edit User</h3>
+      <div class="input-group"><input type="number" id="employeeId" placeholder="Employee ID" readonly /></div>
       <div class="input-group"><input type="text" id="fullName" placeholder="Full Name" /></div>
       <div class="input-group"><input type="email" id="email" placeholder="Email" /></div>
       <div class="input-group"><input type="text" id="role" placeholder="Role (Admin/User)" /></div>
-      <div class="input-group"><input type="text" id="password" placeholder="Password" /></div>
-      <button onclick="saveUser()">Simpan</button>
+      <div class="input-group"><input type="text" id="password" placeholder="New Password (optional)" /></div>
+      <button onclick="saveUser()">Save Changes</button>
       <p id="formResult" style="margin-top: 12px; font-weight: 600;"></p>
     </div>
 
+    <!-- ✅ User Table + Search + Export -->
     <div class="card">
-      <h3>Daftar Pengguna</h3>
+      <h3>User List</h3>
       <div class="input-group">
-        <input type="text" id="searchInput" placeholder="Cari berdasarkan nama atau email..." oninput="filterUsers()" />
+        <input type="text" id="searchInput" placeholder="Search by name or email..." oninput="filterUsers()" />
       </div>
       <div class="input-group">
         <button onclick="exportCSV()">Export CSV</button>
@@ -45,7 +59,7 @@
       <table id="userTable">
         <thead>
           <tr>
-            <th>ID</th><th>Nama</th><th>Email</th><th>Role</th><th>Aksi</th>
+            <th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Actions</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -67,7 +81,7 @@
   <script>
     const role = localStorage.getItem("role");
     if (role !== "Admin") {
-      alert("❌ Akses ditolak. Halaman ini hanya untuk Admin.");
+      alert("❌ Access denied. This page is for Admin only.");
       window.location.href = "dashboard.html";
     }
 
@@ -80,7 +94,7 @@
     let isEditing = false;
 
     async function loadUsers() {
-      const res = await fetch("https://script.google.com/macros/s/AKfycbwI7__sas8yt9WNBFpz_qvdqU0JqOh93qovhv7O2isD3dVgW_ZbPqX_Qv2KSh8BHbc8Tw/exec?action=listUsers");
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=listUsers");
       allUsers = await res.json();
       renderUsers(allUsers);
     }
@@ -97,7 +111,7 @@
           <td>${user.role}</td>
           <td>
             <button onclick='editUser(${user.employeeId})'>Edit</button>
-            <button onclick='deleteUser(${user.employeeId})'>Hapus</button>
+            <button onclick='deleteUser(${user.employeeId})'>Delete</button>
           </td>
         `;
         tbody.appendChild(row);
@@ -113,6 +127,39 @@
       renderUsers(filtered);
     }
 
+    async function addUser() {
+      const employeeId = document.getElementById("newEmployeeId").value.trim();
+      const fullName = document.getElementById("newFullName").value.trim();
+      const email = document.getElementById("newEmail").value.trim();
+      const role = document.getElementById("newRole").value.trim();
+      const password = document.getElementById("newPassword").value.trim();
+      const result = document.getElementById("addResult");
+
+      if (!employeeId || !fullName || !email || !role || !password) {
+        result.textContent = "⚠️ All fields are required.";
+        result.style.color = "red";
+        return;
+      }
+
+      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+        method: "POST",
+        body: JSON.stringify({
+          action: "saveUser",
+          employeeId,
+          fullName,
+          email,
+          role,
+          password
+        }),
+        headers: { "Content-Type": "text/plain;charset=utf-8" }
+      });
+
+      const data = await res.json();
+      result.textContent = data.message;
+      result.style.color = data.status === "success" ? "green" : "red";
+      loadUsers();
+    }
+
     async function saveUser() {
       const employeeId = document.getElementById("employeeId").value.trim();
       const fullName = document.getElementById("fullName").value.trim();
@@ -122,12 +169,12 @@
       const result = document.getElementById("formResult");
 
       if (!employeeId || !fullName || !email || !role || (!password && !isEditing)) {
-        result.textContent = "⚠️ Semua kolom harus diisi.";
+        result.textContent = "⚠️ All fields are required.";
         result.style.color = "red";
         return;
       }
 
-      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbwI7__sas8yt9WNBFpz_qvdqU0JqOh93qovhv7O2isD3dVgW_ZbPqX_Qv2KSh8BHbc8Tw/exec", {
         method: "POST",
         body: JSON.stringify({
           action: "saveUser",
@@ -148,7 +195,7 @@
     }
 
     async function deleteUser(id) {
-      if (!confirm("Yakin ingin menghapus user ini?")) return;
+      if (!confirm("Are you sure you want to delete this user?")) return;
 
       const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
         method: "POST",
