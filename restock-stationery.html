@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Restock Stationery - MyProduction</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- ✅ Meta untuk PWA dan theme -->
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -67,6 +66,9 @@
       window.location.href = "index.html";
     }
 
+    // ✅ Replace with your actual Apps Script deployment URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycby7EIV0OmrUn-LHVVkpaJC74-p6wK8kya3Zdkg3yvxekL9Um0fzcZQRqH2YDnB4fuSKLQ/exec";
+
     // ✅ Barcode Scanner Setup
     const scanner = new Html5Qrcode("scanner");
     scanner.start(
@@ -85,7 +87,7 @@
 
     // ✅ Fetch item details from backend
     async function fetchItemDetails(code) {
-      const res = await fetch(`https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec?action=getItem&code=${code}`);
+      const res = await fetch(`${scriptURL}?action=getItem&code=${code}`);
       const item = await res.json();
       document.getElementById("itemName").value = item.name || "Unknown Item";
     }
@@ -98,7 +100,7 @@
         quantity: document.getElementById("quantity").value,
         notes: document.getElementById("notes").value
       };
-      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+      const res = await fetch(scriptURL, {
         method: "POST",
         body: JSON.stringify(payload),
         headers: { "Content-Type": "text/plain;charset=utf-8" }
