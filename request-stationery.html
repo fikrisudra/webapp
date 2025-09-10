@@ -49,19 +49,19 @@
       </div>
       <div class="input-group">
         <label>Kode Barang</label>
-        <input type="text" id="itemCode" placeholder="Auto-filled" disabled />
+        <input type="text" id="itemCode" placeholder="Otomatis" disabled />
       </div>
       <div class="input-group">
         <label>Jumlah</label>
-        <input type="number" id="quantity" placeholder="Quantity" />
+        <input type="number" id="quantity" placeholder="Jumlah" />
       </div>
       <div class="input-group">
-        <label>Catatan</label>
-        <input type="text" id="notes" placeholder="Notes" />
+        <label>Catatan (opsional)</label>
+        <input type="text" id="notes" placeholder="Catatan Tambahan" />
       </div>
       <div class="input-group">
         <label>Delegasi</label>
-        <input type="text" id="delegate" placeholder="Delegate" />
+        <input type="text" id="delegate" placeholder="Delegasi" />
       </div>
       <div class="input-group">
         <label>Foto</label>
@@ -74,7 +74,7 @@
     <div id="itemList"></div>
 
     <div class="form-card" id="submitCard" style="display:none;">
-      <button class="btn-primary" onclick="submitRequest()">Kirim Barang</button>
+      <button class="btn-primary" onclick="submitRequest()">Submit</button>
       <p id="requestMessage" style="display:none; font-weight:600;"></p>
     </div>
   </main>
@@ -148,12 +148,12 @@
         card.className = "form-card";
         card.innerHTML = `
           <i class="fas fa-trash delete-icon" onclick="deleteItem(${index})" title="Delete Item"></i>
-          <h4>Item ${index + 1}</h4>
-          <p><strong>Name:</strong> ${item.name}</p>
-          <p><strong>Code:</strong> ${item.code}</p>
-          <p><strong>Quantity:</strong> ${item.quantity}</p>
-          <p><strong>Notes:</strong> ${item.notes}</p>
-          <p><strong>Delegate:</strong> ${item.delegate}</p>
+          <h4>Barang ${index + 1}</h4>
+          <p><strong>Nama Barang:</strong> ${item.name}</p>
+          <p><strong>Kode Barang:</strong> ${item.code}</p>
+          <p><strong>Jumlah:</strong> ${item.quantity}</p>
+          <p><strong>Catatan (opsional):</strong> ${item.notes}</p>
+          <p><strong>Delegasi:</strong> ${item.delegate}</p>
           ${item.photoURL ? `<img src="${item.photoURL}" style="max-width:100%; border-radius:4px;" />` : ""}
         `;
         container.appendChild(card);
