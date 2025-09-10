@@ -467,3 +467,17 @@ body.login-page {
     background: #1f7acc;
   }
 }
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #555;
+  cursor: pointer;
+}
+.close-btn:hover {
+  color: #dc3545;
+}
