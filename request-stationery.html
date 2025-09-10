@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Request Stationery - MyProduction</title>
+  <title>Request Stationery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="manifest" href="manifest.json" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="dashboard-page">
@@ -22,77 +20,117 @@
   </header>
 
   <main class="app-content">
-    <div class="card">
-      <h3>Stationery Request Form</h3>
-      <div class="input-group">
-        <select id="itemSelect">
-          <option value="">-- Select Item --</option>
-          <option value="PEN001">Ballpoint Pen</option>
-          <option value="NOTE002">Notebook</option>
-          <option value="STAP003">Stapler</option>
-          <option value="PAPR004">A4 Paper</option>
-          <!-- You can dynamically load items from backend here -->
-        </select>
-      </div>
-      <div class="input-group">
-        <input type="number" id="quantity" placeholder="Quantity" />
-      </div>
-      <div class="input-group">
-        <input type="text" id="notes" placeholder="Notes (optional)" />
-      </div>
-      <button onclick="submitRequest()">Submit Request</button>
-      <p id="requestResult" style="margin-top: 12px; font-weight: 600;"></p>
-    </div>
+    <form id="requestForm"></form>
+    <button onclick="addItem()">Add Item</button>
+    <button onclick="submitRequest()">Submit Request</button>
+    <p id="requestMessage" style="display:none; font-weight:600;"></p>
   </main>
 
   <nav class="bottom-nav">
-    <button onclick="location.href='dashboard.html'">
-      <i class="fas fa-home"></i>
-      <span>Dashboard</span>
-    </button>
-    <button onclick="location.href='profile.html'">
-      <i class="fas fa-user"></i>
-      <span>Profile</span>
-    </button>
+    <button onclick="location.href='dashboard.html'"><i class="fas fa-home"></i><span>Dashboard</span></button>
+    <button onclick="location.href='profile.html'"><i class="fas fa-user"></i><span>Profile</span></button>
   </nav>
 
   <script>
+    const scriptURL = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
+    let stockMap = {};
+
     function logout() {
       localStorage.clear();
       window.location.href = "index.html";
     }
 
-    async function submitRequest() {
-      const itemCode = document.getElementById("itemSelect").value;
-      const quantity = document.getElementById("quantity").value;
-      const notes = document.getElementById("notes").value;
-      const result = document.getElementById("requestResult");
-
-      if (!itemCode || !quantity) {
-        result.textContent = "⚠️ Please select an item and enter quantity.";
-        result.style.color = "red";
-        return;
-      }
-
-      const payload = {
-        action: "requestItem",
-        code: itemCode,
-        quantity,
-        notes
-      };
-
-      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: { "Content-Type": "text/plain;charset=utf-8" }
-      });
-
-      const data = await res.json();
-      result.textContent = data.message;
-      result.style.color = data.status === "success" ? "green" : "red";
+    async function loadStock() {
+      const res = await fetch(`${scriptURL}?action=getStock`);
+      const stock = await res.json();
+      stock.forEach(item => stockMap[item.itemcode] = item);
     }
 
-    // ✅ PWA Service Worker & Install Prompt
+    function addItem() {
+      const container = document.createElement("div");
+      container.className = "card item-block";
+      container.innerHTML = `
+        <div class="input-group"><input type="text" placeholder="Item Code" oninput="syncItemName(this)" /></div>
+        <div class="input-group"><input type="text" placeholder="Item Name" /></div>
+        <div class="input-group"><input type="number" placeholder="Quantity" /></div>
+        <div class="input-group"><input type="text" placeholder="Notes" /></div>
+        <div class="input-group"><input type="text" placeholder="Delegate" /></div>
+        <div class="input-group"><input type="file" accept="image/*" capture="environment" onchange="uploadImage(this)" /></div>
+        <input type="hidden" class="photoURL" />
+      `;
+      document.getElementById("requestForm").appendChild(container);
+    }
+
+    function syncItemName(input) {
+      const code = input.value;
+      const block = input.closest(".item-block");
+      const nameInput = block.querySelectorAll("input")[1];
+      const stock = stockMap[code];
+      if (stock) {
+        nameInput.value = stock.itemname;
+        nameInput.readOnly = true;
+      } else {
+        nameInput.value = "";
+        nameInput.readOnly = false;
+      }
+    }
+
+    async function uploadImage(fileInput) {
+      const file = fileInput.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append("image", file);
+      const res = await fetch("https://api.imgbb.com/1/upload?key=YOUR_IMGBB_API_KEY", {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      const urlInput = fileInput.closest(".item-block").querySelector(".photoURL");
+      urlInput.value = data.data.url;
+    }
+
+    async function submitRequest() {
+      const blocks = document.querySelectorAll(".item-block");
+      for (const block of blocks) {
+        const inputs = block.querySelectorAll("input");
+        const code = inputs[0].value;
+        const name = inputs[1].value;
+        const qty = parseInt(inputs[2].value);
+        const notes = inputs[3].value;
+        const delegate = inputs[4].value;
+        const photoURL = inputs[6].value;
+
+        const stock = stockMap[code];
+        if (stock && qty > parseInt(stock.stock)) {
+          alert(`❌ Quantity exceeds stock for ${code}`);
+          return;
+        }
+
+        const payload = {
+          action: "requestItem",
+          code,
+          name,
+          quantity: qty,
+          notes,
+          delegate,
+          photoURL
+        };
+
+        await fetch(scriptURL, {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: { "Content-Type": "text/plain;charset=utf-8" }
+        });
+      }
+
+      const msg = document.getElementById("requestMessage");
+      msg.textContent = "✅ Request submitted successfully.";
+      msg.style.color = "green";
+      msg.style.display = "block";
+      setTimeout(() => msg.style.display = "none", 5000);
+      document.getElementById("requestForm").innerHTML = "";
+    }
+
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").then(() =>
         console.log("Service Worker Registered")
@@ -105,6 +143,8 @@
       deferredPrompt = e;
       console.log("Install prompt captured");
     });
+
+    loadStock();
   </script>
 </body>
 </html>

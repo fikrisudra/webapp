@@ -35,6 +35,12 @@
         <span>Restock Stationery</span>
       </a>
 
+      <!-- ✅ Admin-only: Stock Stationery -->
+      <a href="stock-stationery.html" class="card card-menu" id="stockCard" style="display: none;">
+        <i class="fas fa-warehouse"></i>
+        <span>Stock Stationery</span>
+      </a>
+
       <!-- ✅ Admin-only: Manage Users -->
       <a href="manage-users.html" class="card card-menu" id="manageUsersCard" style="display: none;">
         <i class="fas fa-users-cog"></i>
@@ -64,9 +70,9 @@
     if (role === "Admin") {
       document.getElementById("manageUsersCard").style.display = "flex";
       document.getElementById("restockCard").style.display = "flex";
+      document.getElementById("stockCard").style.display = "flex";
     }
 
-    // ✅ PWA Service Worker & Install Prompt
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").then(() =>
         console.log("Service Worker Registered")

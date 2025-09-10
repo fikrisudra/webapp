@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stock Stationery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-page">
+  <header class="app-header">
+    <h1>Stock Stationery</h1>
+    <button class="logout-btn" onclick="logout()">
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
+  </header>
+
+  <main class="app-content">
+    <div class="card">
+      <input type="text" id="searchBox" placeholder="Search by name or code..." oninput="filterStock()" />
+      <table id="stockTable">
+        <thead><tr><th>Item Code</th><th>Item Name</th><th>Stock</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <button onclick="location.href='dashboard.html'"><i class="fas fa-home"></i><span>Dashboard</span></button>
+    <button onclick="location.href='profile.html'"><i class="fas fa-user"></i><span>Profile</span></button>
+  </nav>
+
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
+    let stockData = [];
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    async function loadStock() {
+      const res = await fetch(`${scriptURL}?action=getStock`);
+      stockData = await res.json();
+      renderTable(stockData);
+    }
+
+    function renderTable(data) {
+      const tbody = document.querySelector("#stockTable tbody");
+      tbody.innerHTML = "";
+      data.forEach(item => {
+        tbody.innerHTML += `<tr>
+          <td>${item.itemcode}</td>
+          <td>${item.itemname}</td>
+          <td>${item.stock}</td>
+        </tr>`;
+      });
+    }
+
+    function filterStock() {
+      const query = document.getElementById("searchBox").value.toLowerCase();
+      const filtered = stockData.filter(item =>
+        item.itemcode.toLowerCase().includes(query) ||
+        item.itemname.toLowerCase().includes(query)
+      );
+      renderTable(filtered);
+    }
+
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js").then(() =>
+        console.log("Service Worker Registered")
+      );
+    }
+
+    let deferredPrompt;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      console.log("Install prompt captured");
+    });
+
+    loadStock();
+  </script>
+</body>
+</html>
