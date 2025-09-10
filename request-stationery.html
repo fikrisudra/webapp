@@ -36,7 +36,7 @@
   </nav>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbz45qgnLqdLk6SVGbI6I_XCbTFXcNBrXCyVIbjjyYAee-CSk1NCe2RhX1ABlAGkfKRn5A/exec";
     let stockMap = {};
 
     function logout() {
@@ -85,7 +85,7 @@
       if (!file) return;
       const formData = new FormData();
       formData.append("image", file);
-      const res = await fetch("https://api.imgbb.com/1/upload?key=YOUR_IMGBB_API_KEY", {
+      const res = await fetch("https://api.imgbb.com/1/upload?key=35d4bcf41afaa32795772ceedc8bc89a", {
         method: "POST",
         body: formData
       });
