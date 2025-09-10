@@ -474,14 +474,19 @@ body.login-page {
   right: 12px;
   background: none;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   color: #555;
   cursor: pointer;
   padding-bottom: 8px;
+  z-index: 10000;
 }
 
 .close-btn:hover {
   color: #dc3545;
+}
+
+.close-btn i {
+  pointer-events: none;
 }
 
 .close-btn i {
