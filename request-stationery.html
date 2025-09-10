@@ -11,6 +11,24 @@
   <link rel="manifest" href="manifest.json" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .form-card {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .delete-icon {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 1.2rem;
+      color: #dc3545;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .delete-icon:hover {
+      color: #a00;
+    }
+  </style>
 </head>
 <body class="dashboard-page">
   <header class="app-header">
@@ -125,6 +143,7 @@
         const card = document.createElement("div");
         card.className = "form-card";
         card.innerHTML = `
+          <i class="fas fa-trash delete-icon" onclick="deleteItem(${index})" title="Delete Item"></i>
           <h4>Item ${index + 1}</h4>
           <p><strong>Name:</strong> ${item.name}</p>
           <p><strong>Code:</strong> ${item.code}</p>
@@ -137,6 +156,11 @@
       });
 
       document.getElementById("submitCard").style.display = requestItems.length > 0 ? "block" : "none";
+    }
+
+    function deleteItem(index) {
+      requestItems.splice(index, 1);
+      renderItemList();
     }
 
     function resetMainForm() {
@@ -183,6 +207,8 @@
       }
 
       const msg = document.getElementById("requestMessage");
+     [43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/muminy/mukemmelis/tree/40bac68ccc86a046a2cb71bcb94db9765cae2e67/pages%2F_document.js?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "1")
+     const msg = document.getElementById("requestMessage");
       msg.textContent = "✅ Request submitted successfully.";
       msg.style.color = "green";
       msg.style.display = "block";
@@ -191,6 +217,7 @@
       renderItemList();
     }
 
+    // PWA Install Prompt
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker.register("sw.js").then(() =>
         console.log("Service Worker Registered")
@@ -204,6 +231,7 @@
       console.log("Install prompt captured");
     });
 
+    // Load stock on page load
     loadStock();
   </script>
 </body>
