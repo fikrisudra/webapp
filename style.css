@@ -213,6 +213,45 @@ body.login-page {
   cursor: not-allowed;
 }
 
+/* === SCAN BARCODE INLINE === */
+.input-group.horizontal-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-with-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.input-with-button input {
+  flex: 1;
+  padding: 14px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.scan-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.scan-btn:hover {
+  background-color: #0056b3;
+}
+
 /* === BUTTON UTILITIES === */
 .btn-primary {
   background: #007bff;
@@ -338,7 +377,7 @@ body.login-page {
 }
 
 .login-card button:hover {
-  background: #0056b3;
+  background: #0056b3
 }
 
 .login-card #result {
@@ -427,94 +466,4 @@ body.login-page {
   .error-page a:hover {
     background: #1f7acc;
   }
-}
-
-.overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.overlay-card {
-  background: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  max-width: 90%;
-  width: 400px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
-
-.overlay-card video {
-  width: 100%;
-  height: auto;
-  margin-bottom: 1rem;
-  border-radius: 4px;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 1.8rem;
-  color: #333;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  z-index: 10000;
-}
-.close-btn:hover {
-  transform: scale(1.2);
-  color: #e74c3c;
-}
-.overlay-card {
-  position: relative;
-  background: #fff;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  max-width: 90%;
-  width: 400px;
-  text-align: center;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
-.overlay-card h3 {
-  margin-top: 0.5rem;
-  font-size: 1.2rem;
-  color: #333;
-}
-
-.horizontal-group .input-with-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.input-with-button input {
-  flex: 1;
-  padding-right: 2.5rem;
-}
-
-.scan-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: none;
-  background-color: #007bff;
-  color: #fff;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.scan-btn:hover {
-  background-color: #0056b3;
 }
