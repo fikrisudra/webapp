@@ -197,7 +197,7 @@
     async function deleteUser(id) {
       if (!confirm("Are you sure you want to delete this user?")) return;
 
-      const res = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+      const res = await fetch("https://script.google.com/macros/s/AKfycbwI7__sas8yt9WNBFpz_qvdqU0JqOh93qovhv7O2isD3dVgW_ZbPqX_Qv2KSh8BHbc8Tw/exec", {
         method: "POST",
         body: JSON.stringify({ action: "deleteUser", employeeId: id }),
         headers: { "Content-Type": "text/plain;charset=utf-8" }
