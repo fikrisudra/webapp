@@ -24,15 +24,16 @@ body {
   overflow: hidden;
 }
 
-/* === PAGE-SPECIFIC === */
+body.dashboard-page,
+body.error-page,
+body.manage-page {
+  overflow-y: auto;
+}
+
 body.login-page {
   justify-content: center;
   align-items: center;
   padding: 16px;
-}
-
-body.dashboard-page {
-  overflow-y: auto;
 }
 
 /* === HEADER === */
@@ -106,25 +107,29 @@ body.dashboard-page {
 }
 
 /* === CARD === */
-.card {
+.card,
+.form-card {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   padding: 20px;
 }
 
-.card h3 {
+.card h3,
+.form-card h3 {
   margin-bottom: 12px;
   font-size: 1.2rem;
   color: #007bff;
 }
 
-.card p {
+.card p,
+.form-card p {
   margin-bottom: 8px;
   font-size: 1rem;
 }
 
-.card button {
+.card button,
+.form-card button {
   background: #007bff;
   color: white;
   border: none;
@@ -136,16 +141,9 @@ body.dashboard-page {
   transition: background 0.3s;
 }
 
-.card button:hover {
+.card button:hover,
+.form-card button:hover {
   background: #0056b3;
-}
-
-.card #result {
-  margin-top: 12px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1rem;
-  color: red;
 }
 
 /* === CARD MENU === */
@@ -194,7 +192,8 @@ body.dashboard-page {
   color: #555;
 }
 
-.input-group input {
+.input-group input,
+.input-group select {
   width: 100%;
   padding: 14px;
   border: 1px solid #ccc;
@@ -202,7 +201,8 @@ body.dashboard-page {
   font-size: 1rem;
 }
 
-.input-group input:focus {
+.input-group input:focus,
+.input-group select:focus {
   border-color: #007bff;
   outline: none;
 }
@@ -211,6 +211,25 @@ body.dashboard-page {
   background: #e9ecef;
   color: #333;
   cursor: not-allowed;
+}
+
+/* === BUTTON UTILITIES === */
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #c82333;
 }
 
 /* === BOTTOM NAV === */
@@ -271,12 +290,6 @@ body.dashboard-page {
   margin-top: 32px;
 }
 
-@media (max-width: 480px) {
-  .login-card {
-    margin-top: 16px;
-  }
-}
-
 .login-icon {
   position: absolute;
   top: -40px;
@@ -335,136 +348,83 @@ body.dashboard-page {
   margin-bottom: 8px;
 }
 
-/* === DARK MODE === */
+/* === MANAGE USERS === */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.user-table th {
+  background: #f1f1f1;
+  font-weight: 600;
+}
+
+.user-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* === ERROR PAGES === */
+.error-page {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 32px;
+}
+
+.error-page h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #dc3545;
+  margin-bottom: 16px;
+}
+
+.error-page p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.error-page a {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #007bff;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.error-page a:hover {
+  background: #0056b3;
+}
+
+/* === DARK MODE: ERROR PAGE === */
 @media (prefers-color-scheme: dark) {
-  body {
-    background: #1e1e1e;
-    color: #f0f0f0;
+  .error-page h1 {
+    color: #ff4d4d;
   }
 
-  .app-header,
-  .card,
-  .card-menu,
-  .login-card {
-    background: #2a2a2a;
-    color: white;
-    box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+  .error-page p {
+    color: #ccc;
   }
 
-  .input-group input,
-  .login-card input {
-    background: #3a3a3a;
-    color: white;
-    border: 1px solid #555;
-  }
-
-  .input-group input:focus,
-  .login-card input:focus {
-    border-color: #66b2ff;
-  }
-  
-  .card-menu:hover {
-    background: #1f2f4d;
-  }
-
-  .bottom-nav {
-    background: #2a2a2a;
-    border-top: 1px solid #444;
-  }
-
-  .bottom-nav button {
-    color: #66b2ff;
-  }
-
-  .bottom-nav button:hover {
-    color: #3399ff;
-  }
-
-  .app-header h1 {
-    color: #f0f0f0;
-  }
-
-  .logout-btn {
-    background: #ff4d4d;
-    color: white;
-  }
-
-  .logout-btn:hover {
-    background: #e63946;
-  }
-
-  .login-icon {
+  .error-page a {
     background: #3399ff;
     color: white;
   }
 
-  .login-title {
-    color: #f0f0f0;
-  }
-
-  .login-card {
-    margin-top: 32px;
-  }
-
-  @media (max-width: 480px) {
-    .login-card {
-      margin-top: 16px;
-    }
-  }
-
-  .input-group input[disabled] {
-    background: #444;
-    color: #ccc;
-    border: 1px solid #666;
-  }
-
-  .input-group label {
-    color: #ccc;
-  }
-
-  .login-card #result {
-    color: #ff4d4d;
-  }
-
-  .card #result {
-    color: #ff4d4d;
-  }
-}
-
-/* === OPTIONAL INSTALL BUTTON === */
-.download-app-btn {
-  width: 100%;
-  padding: 14px;
-  background: #28a745;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: background 0.3s ease;
-}
-
-.download-app-btn:hover {
-  background: #218838;
-}
-
-.download-app-btn i {
-  font-size: 1.2rem;
-  pointer-events: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  .download-app-btn {
-    background: #44c767;
-  }
-
-  .download-app-btn:hover {
-    background: #2e9e4f;
+  .error-page a:hover {
+    background: #1f7acc;
   }
 }
