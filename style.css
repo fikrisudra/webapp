@@ -96,14 +96,9 @@ body.login-page {
 /* === CARD GRID === */
 .card-grid {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 16px;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-@media (min-width: 768px) {
-  .card-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  padding: 8px;
 }
 
 /* === CARD === */
@@ -168,6 +163,8 @@ body.login-page {
 .card-menu i {
   font-size: 2rem;
   color: #007bff;
+  min-height: 120px;
+  max-width: 100%;
 }
 
 .card-menu span {
@@ -545,4 +542,22 @@ body.login-page {
   0%   { top: 0; }
   50%  { top: calc(100% - 2px); }
   100% { top: 0; }
+}
+
+.form-card {
+  margin-bottom: 1.5rem; /* ✅ Jarak antar card */
+  position: relative;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1.2rem;
+  color: #dc3545;
+  cursor: pointer;
+  z-index: 1;
+}
+.delete-icon:hover {
+  color: #a00;
 }
